@@ -9,7 +9,10 @@ Para que los usuarios puedan ver comida saludable, organizar con un calendario s
 App de recetas con recetas subidas o que suban y un blog para publicar  
 
 ### Modelo de datos
-![texto_alernativo](/modeloDatos.jpg)
+![texto_alernativo](modelodatos.jpg)
+
+### Modelo de datos
+![texto_alernativo](/Capturas/modeloEjemplo1.png)
 
 ### Como abrir el archivo mockup.fig
 Ir al enlace de [figma](http://figma.com/) y loguearse. Cuando estés dentro, habrá un botón en la esquina superior derecha llamada IMPORT, le das al botón y podrás importar el mockup.fig
