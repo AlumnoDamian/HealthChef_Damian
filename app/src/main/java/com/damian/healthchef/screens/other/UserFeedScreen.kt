@@ -1,5 +1,6 @@
 package com.damian.healthchef.screens.other
 
+import android.app.AlertDialog
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -18,6 +19,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.damian.healthchef.navigation.BottomAppBarContent
 
@@ -30,6 +32,9 @@ fun UserFeedScreen(
     onContinueUserFeedScreen: () -> Unit,
     onLogOut: () -> Unit
 ) {
+
+    val context = LocalContext.current
+
     Scaffold(
         topBar = {
             TopAppBarUserFeed()
@@ -48,7 +53,19 @@ fun UserFeedScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(
-                onClick = { onLogOut() },
+                onClick = {
+                    AlertDialog.Builder(context)
+                        .setTitle("Cerrar sesión")
+                        .setMessage("¿Estás seguro de que quieres cerrar sesión?")
+                        .setPositiveButton("Sí") { dialog, _ ->
+                            onLogOut()
+                            dialog.dismiss()
+                        }
+                        .setNegativeButton("Cancelar") { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        .show()
+                },
                 modifier = Modifier
                     .padding(10.dp)
                     .width(300.dp),
