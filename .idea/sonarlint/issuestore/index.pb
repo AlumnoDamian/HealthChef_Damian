@@ -33,9 +33,9 @@ Kapp/src/main/java/com/damian/healthchef/screens/other/UploadRecipeScreen.kt,0\
 Papp/src/main/java/com/damian/healthchef/screens/other/PlanificationDateScreen.kt,2\4\24c8952ca2565782c780686c410fea3e45bbe2c2
 u
 Eapp/src/main/java/com/damian/healthchef/screens/other/RecipeScreen.kt,7\8\78c9e13b834131e92cb86e1fefdaef686edd6909
-s
-Capp/src/main/java/com/damian/healthchef/navigation/BottomNavItem.kt,f\f\ffe5c35b03749845ee23a273399123ddf896658c
-v
-Fapp/src/main/java/com/damian/healthchef/navigation/BottomBarContent.kt,a\8\a87ebaba750a552ed476b89eda4baab4807e8adc
 P
  app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+<
+historial.md,3\e\3e49b927ee31d18809e0c238da1e1ba67ae3ae60
