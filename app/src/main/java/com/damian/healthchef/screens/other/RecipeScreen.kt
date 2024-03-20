@@ -33,7 +33,7 @@ fun RecipeScreen(
                 onContinueUplooadRecipeScreen,
                 onContinuePlanificactionDateScreen,
                 onContinueUserFeedScreen
-            )        },
+            ) },
     ) { innerPadding ->
         Text(
             modifier = Modifier.padding(innerPadding),

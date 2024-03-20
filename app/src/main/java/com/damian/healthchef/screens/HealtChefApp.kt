@@ -2,14 +2,13 @@ package com.damian.healthchef.screens
 
 
 import android.app.AlertDialog
-import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.damian.healthchef.R
+import com.damian.healthchef.navigation.Screens
 import com.damian.healthchef.screens.login.LoginScreen
 import com.damian.healthchef.screens.login.RegisterScreen
 import com.damian.healthchef.screens.other.HomeScreen
@@ -17,16 +16,6 @@ import com.damian.healthchef.screens.other.PlanificationDateScreen
 import com.damian.healthchef.screens.other.RecipeScreen
 import com.damian.healthchef.screens.other.UploadRecipeScreen
 import com.damian.healthchef.screens.other.UserFeedScreen
-
-enum class Screens(val title : Int) {
-    Login(title = R.string.login),
-    Register(title = R.string.register),
-    Home(title = R.string.home),
-    Recipe(title = R.string.recipes),
-    UploadRecipe(title = R.string.uploadRecipes),
-    PlanificationDate(title = R.string.planificationDate),
-    UserFeed(title = R.string.userFeed)
-}
 
 @Composable
 fun HealthChefApp(

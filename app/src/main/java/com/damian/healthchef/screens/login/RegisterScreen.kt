@@ -1,7 +1,6 @@
 package com.damian.healthchef.screens.login
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -49,8 +48,7 @@ fun RegisterScreen(
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
@@ -78,13 +76,16 @@ fun RegisterScreen(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("¿Ya tienes cuenta?")
+            Text(
+                text = "¿Ya tienes cuenta?",
+                color = MaterialTheme.colorScheme.primary
+            )
             Text(
                 text = "Inicia sesión aquí",
                 modifier = Modifier
                     .clickable(onClick = onContinueLogin)
                     .padding(start = 5.dp),
-                color = MaterialTheme.colorScheme.inversePrimary
+                color = MaterialTheme.colorScheme.secondary
             )
         }
 

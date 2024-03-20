@@ -70,13 +70,16 @@ fun LoginScreen(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("¿No tienes cuenta?")
+            Text(
+                text = "¿No tienes cuenta?",
+                color = MaterialTheme.colorScheme.primary
+            )
             Text(
                 text = "Regístrate",
                 modifier = Modifier
                     .clickable(onClick = onContinueRegister)
                     .padding(start = 5.dp),
-                color = MaterialTheme.colorScheme.inversePrimary
+                color = MaterialTheme.colorScheme.secondary
             )
         }
 
