@@ -15,8 +15,6 @@ P
 historial.md,3\e\3e49b927ee31d18809e0c238da1e1ba67ae3ae60
 z
 Japp/src/main/java/com/damian/healthchef/ui/screens/other/UserFeedScreen.kt,3\1\31803e855ffbde75f5dff9228c322fc9dcd6777a
-v
-Fapp/src/main/java/com/damian/healthchef/ui/screens/other/HomeScreen.kt,a\a\aa024836f707a4910b9dc08afc18367135f91411
 f
 6app/src/main/java/com/damian/healthchef/utils/Utils.kt,7\e\7ed56129808bb29669c74567c6e403f77d9be271
 j
@@ -35,8 +33,6 @@ z
 Japp/src/main/java/com/damian/healthchef/ui/screens/login/RegisterScreen.kt,5\c\5cc7dd319337eed64456a0c9a20e814554d1cd04
 p
 @app/src/main/java/com/damian/healthchef/ui/navigation/Screens.kt,c\b\cb22813d702ff91728e64a24ea2403f328b05fc0
-|
-Lapp/src/main/java/com/damian/healthchef/ui/navigation/BottomAppBarContent.kt,0\b\0b8cbe124fa83fe2e4dd2db31170f04cfe26032a
 u
 Eapp/src/main/java/com/damian/healthchef/ui/viewmodel/HomeViewModel.kt,2\7\2785280015f7ea7e734aaaa61671583c20ccea10
 o
@@ -51,3 +47,13 @@ x
 Happ/src/main/java/com/damian/healthchef/ui/screens/other/RecipeScreen.kt,3\f\3f8097a323fe1d7443af80471d36b9ab25aa0536
 ~
 Napp/src/main/java/com/damian/healthchef/ui/screens/other/UploadRecipeScreen.kt,e\8\e8bb3604de674a275d0ed704cfa26a4afe54e506
+u
+Eapp/src/main/java/com/damian/healthchef/ui/viewmodel/UserViewModel.kt,0\6\062618cb07f3f687a45db55be3cab0edb7755d8a
+|
+Lapp/src/main/java/com/damian/healthchef/ui/navigation/bottombar/BottomBar.kt,3\7\372cd80f2a7d975f258877b336bff0f18c95b362
+ƒ
+Sapp/src/main/java/com/damian/healthchef/ui/navigation/bottombar/NavigationScreen.kt,e\a\eaf8ab8e715b67d5b171506fba314275d38fdaa9
+g
+7app/src/main/java/com/damian/healthchef/data/db/Post.kt,4\2\42413df1c27b153cfc9e790e84c212eeb1ca8668
+|
+Lapp/src/main/java/com/damian/healthchef/ui/navigation/BottomAppBarContent.kt,0\b\0b8cbe124fa83fe2e4dd2db31170f04cfe26032a

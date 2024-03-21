@@ -1,3 +1,4 @@
 
-Rkotlin:S11727"3Remove this unused function parameter "navigation".(õåÛ°8®Ÿ½æ1
-Hkotlin:S1874Î"#Deprecated code should not be used.(Î“Ïƒúÿÿÿÿ8¿Ÿ½æ1
+rkotlin:S1172t"-Remove this unused function parameter "name".(»‚ıŠ8ã¦ç•æ1J$174a8e5f-bac5-402e-9859-3c985ef300d4
+kotlin:S1172W"7Use "_" instead of this unused lambda parameter "post".(Á¥à‹ÿÿÿÿÿ8Å¶ê•æ1J$12851eb8-33ef-4532-b0be-f375c59e8b96
+nkotlin:S1874¥"#Deprecated code should not be used.(Î“Ïƒúÿÿÿÿ8õ¦ç•æ1J$a666c277-6ce0-4b6b-ae3f-d44cbd88db27

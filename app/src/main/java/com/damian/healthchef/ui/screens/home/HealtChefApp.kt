@@ -16,7 +16,7 @@ import com.damian.healthchef.ui.screens.other.PlanificationDateScreen
 import com.damian.healthchef.ui.screens.other.RecipeScreen
 import com.damian.healthchef.ui.screens.other.UploadRecipeScreen
 import com.damian.healthchef.ui.screens.other.UserFeedScreen
-import com.damian.healthchef.ui.viewmodel.HomeViewModel
+import com.damian.healthchef.ui.viewmodel.BlogViewModel
 
 @Composable
 fun HealthChefApp(
@@ -51,7 +51,7 @@ fun HealthChefApp(
                 )
             }
             composable(route = Screens.Home.name){
-                val viewModel: HomeViewModel = viewModel()
+                val viewModel: BlogViewModel = viewModel()
                 BlogScreen(
                     viewModel = viewModel,
                     onContinueHomeScreen = { navController.navigate(Screens.Home.name) },
