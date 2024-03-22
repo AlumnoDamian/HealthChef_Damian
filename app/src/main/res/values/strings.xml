@@ -8,5 +8,5 @@
     <string name="uploadRecipes">Subir Receta</string>
     <string name="planificationDate">Planificación</string>
     <string name="userFeed">User</string>
-
+    <string name="splashScreen">Splash</string>
 </resources>

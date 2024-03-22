@@ -22,13 +22,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.damian.healthchef.R
 import com.damian.healthchef.ui.components.ButtonLoginRegister
 import com.damian.healthchef.ui.components.EmailInput
 import com.damian.healthchef.ui.components.PasswordInput
+import com.damian.healthchef.ui.navigation.Screens
 
 @Composable
 fun LoginScreen(
+    navController: NavController,
     onContinueRegister: () -> Unit,
     onLoginSuccess: () -> Unit
 ) {
@@ -91,6 +94,12 @@ fun LoginScreen(
         ) {
             onLoginSuccess()
             keyboardController?.hide()
+            navController.navigate(Screens.Home.name) {
+                popUpTo(Screens.Login.name) {
+                    inclusive = true
+                }
+                launchSingleTop = true
+            }
         }
     }
 }

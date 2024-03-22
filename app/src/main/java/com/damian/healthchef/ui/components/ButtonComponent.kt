@@ -2,14 +2,20 @@ package com.damian.healthchef.ui.components
 
 import android.app.AlertDialog
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Send
+import androidx.compose.material.icons.outlined.ChatBubble
 import androidx.compose.material.icons.outlined.CommentBank
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.Send
@@ -29,6 +35,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun ButtonLoginRegister(
@@ -76,7 +83,9 @@ fun ButtonLogOut(onLogOut: () -> Unit){
                 }
                 .show()
         },
-        modifier = Modifier.padding(10.dp).width(300.dp),
+        modifier = Modifier
+            .padding(10.dp)
+            .width(300.dp),
         shape = CircleShape,
     ) {
         Text(
@@ -100,42 +109,45 @@ fun ButtonIcons(
     var sendCount by remember { mutableStateOf(initialValueSend) }
 
     Row(
-        modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)),
-    horizontalArrangement = Arrangement.SpaceBetween
+        modifier = Modifier.fillMaxWidth().padding(8.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Row {
+        // Botones de la izquierda
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Start
+        ) {
+            ButtonWithSpace(
+                onClick = {
+                    if (favoriteCount > initialValueFavorite) {
+                        favoriteCount--
+                    } else {
+                        favoriteCount++
+                    }
+                    onFavoriteClick()
+                },
+                icon = Icons.Outlined.Favorite,
+                count = favoriteCount
+            )
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+            ButtonWithSpace(
+                onClick = {
+                    if (commentCount > initialValueComment) {
+                        commentCount--
+                    } else {
+                        commentCount++
+                    }
+                    onCommentClick()
+                },
+                icon = Icons.Outlined.ChatBubble,
+                count = commentCount
+            )
         }
-        ButtonIconWithCounter(
-            icon = Icons.Outlined.Favorite,
-            count = favoriteCount,
-            onClick = {
-                if (favoriteCount > initialValueFavorite) {
-                    favoriteCount--
-                } else {
-                    favoriteCount++
-                }
-                onFavoriteClick()
-            },
-            modifier = Modifier.weight(2f)
-        )
 
-        ButtonIconWithCounter(
-            icon = Icons.Outlined.CommentBank,
-            count = commentCount,
-            onClick = {
-                if (commentCount > initialValueComment) {
-                    commentCount--
-                } else {
-                    commentCount++
-                }
-                onCommentClick()
-            },
-            modifier = Modifier.weight(2f)
-        )
-
-        ButtonIconWithCounter(
-            icon = Icons.Outlined.Send,
-            count = sendCount,
+        // Botón de la derecha
+        ButtonWithSpace(
             onClick = {
                 if (sendCount > initialValueSend) {
                     sendCount--
@@ -144,35 +156,40 @@ fun ButtonIcons(
                 }
                 onSendClick()
             },
-            modifier = Modifier.weight(1f)
+            icon = Icons.Filled.Send,
+            count = sendCount
         )
     }
 }
 
-
 @Composable
-fun ButtonIconWithCounter(
+fun ButtonWithSpace(
+    onClick: () -> Unit,
     icon: ImageVector,
     count: Int,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
 ) {
-    Row(
+    Box(
         modifier = Modifier
-            .background(MaterialTheme.colorScheme.primary),
-        verticalAlignment = Alignment.CenterVertically
-    ){
-        IconButton(
-            onClick = onClick,
-            modifier = Modifier
-                .padding(end = 4.dp)
-        ) {
-            Icon(imageVector = icon, contentDescription = null)
+            .clip(RoundedCornerShape(20.dp))
+            .background(MaterialTheme.colorScheme.primary)
+            .clickable(onClick = onClick)
+            .padding(8.dp)
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                modifier = Modifier.size(24.dp)
+            )
+
+            Spacer(modifier = Modifier.width(4.dp))
+
+            Text(
+                text = "$count",
+                color = MaterialTheme.colorScheme.background,
+                fontSize = 18.sp,
+                modifier = Modifier.padding(start = 4.dp, end = 8.dp)
+            )
         }
-        Text(
-            text = "$count",
-            color = MaterialTheme.colorScheme.background,
-            modifier = Modifier.padding(end = 8.dp)
-        )
     }
 }

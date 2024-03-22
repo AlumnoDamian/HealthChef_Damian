@@ -1,6 +1,8 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.damian.healthchef.ui.screens.home
 
-import android.app.AlertDialog
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -16,6 +18,7 @@ import com.damian.healthchef.ui.screens.other.PlanificationDateScreen
 import com.damian.healthchef.ui.screens.other.RecipeScreen
 import com.damian.healthchef.ui.screens.other.UploadRecipeScreen
 import com.damian.healthchef.ui.screens.other.UserFeedScreen
+import com.damian.healthchef.ui.screens.splash.SplashScreen
 import com.damian.healthchef.ui.viewmodel.BlogViewModel
 
 @Composable
@@ -27,10 +30,14 @@ fun HealthChefApp(
 
     NavHost(
         navController = navController,
-        startDestination = Screens.Login.name,
+        startDestination = Screens.SplashScreen.name,
         ) {
+            composable(route = Screens.SplashScreen.name) {
+                SplashScreen(navController = navController)
+            }
             composable(route = Screens.Login.name) {
                 LoginScreen(
+                    navController = navController,
                     onContinueRegister = { navController.navigate(Screens.Register.name) },
                     onLoginSuccess = { navController.navigate(Screens.Home.name)}
                 )
@@ -38,16 +45,7 @@ fun HealthChefApp(
             composable(route = Screens.Register.name) {
                 RegisterScreen(
                     onContinueLogin = { navController.navigate(Screens.Login.name) },
-                    onRegisterSuccess = { navController.navigate(Screens.Login.name) },
-                    onError = { errorMessage ->
-                        AlertDialog.Builder(context)
-                            .setTitle("Error")
-                            .setMessage(errorMessage)
-                            .setPositiveButton("OK") { dialog, _ ->
-                                dialog.dismiss()
-                            }
-                            .show()
-                    }
+                    onRegisterSuccess = { navController.navigate(Screens.Login.name) }
                 )
             }
             composable(route = Screens.Home.name){

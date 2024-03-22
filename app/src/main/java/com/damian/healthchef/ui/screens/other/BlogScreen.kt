@@ -2,6 +2,7 @@ package com.damian.healthchef.ui.screens.other
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -113,114 +114,58 @@ fun TopAppBarHome(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ImagesItem(image: Int, name: String){
-
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp, horizontal = 16.dp) // Añade separación en todos los lados
-            .clip(RoundedCornerShape(16.dp))
-            .background(Color.White)
-    ) {
-
-
-        //Imagen del usuario
-        Image(
-            painter = painterResource(id = image),
-            contentDescription = "Imagen",
-            modifier = Modifier.fillMaxWidth(),
-            contentScale = ContentScale.FillWidth
-        )
-
-        IconsButton()
-
-
-        Spacer(modifier = Modifier.padding(vertical = 8.dp))
-    }
-}
-
-
-@Composable
-fun IconsButton(){
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Row {
-            IconButton(onClick = {}) {
-                Icon(
-                    imageVector = Icons.Outlined.Favorite,
-                    contentDescription = "Me gusta"
-                )
-            }
-            IconButton(onClick = {}) {
-                Icon(
-                    imageVector = Icons.Outlined.CommentBank,
-                    contentDescription = "Comentarios"
-                )
-            }
-        }
-        IconButton(onClick = {}) {
-            Icon(
-                imageVector = Icons.Outlined.Send,
-                contentDescription = "Enviar a"
-            )
-        }
-    }
-}
-
-@Composable
 fun PostRandom() {
-
-    Column(
+    Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 8.dp)
-            .background(Color.White)
+            .padding(horizontal = 10.dp, vertical = 10.dp)
+            .border(2.dp, Color(0xFFE6C463), RoundedCornerShape(16.dp)),
+        shape = RoundedCornerShape(16.dp),
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            RoundImageCard(
-                image = painterResource(id = R.drawable.health_chef_logo),
-                modifier = Modifier
-                    .size(48.dp)
-                    .padding(4.dp)
+        Column(modifier = Modifier.fillMaxWidth()) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                RoundImageCard(
+                    image = painterResource(id = R.drawable.health_chef_logo),
+                    modifier = Modifier.size(48.dp).padding(4.dp)
+                )
+                Text(text = "Username", fontWeight = FontWeight.Bold)
+            }
+
+            //Imagen del Post
+            Image(
+                painter = painterResource(id = R.drawable.health_chef_logo),
+                contentDescription = "Imagen",
+                modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.background),
+                contentScale = ContentScale.FillWidth
             )
-            Text(text = "Username", fontWeight = FontWeight.Bold)
-        }
-        //Imagen del usuario
-        Image(
-            painter = painterResource(id = R.drawable.health_chef_logo),
-            contentDescription = "Imagen",
-            modifier = Modifier.fillMaxWidth(),
-            contentScale = ContentScale.FillWidth
-        )
 
-        var favoriteCount by remember { mutableStateOf((0..1000).random()) }
-        var commentCount by remember { mutableStateOf((0..100).random()) }
-        var sendCount by remember { mutableStateOf((0..500).random()) }
+            var favoriteCount by remember { mutableStateOf((0..1000).random()) }
+            var commentCount by remember { mutableStateOf((0..100).random()) }
+            var sendCount by remember { mutableStateOf((0..500).random()) }
 
-        ButtonIcons(
-            initialValueFavorite = (0..1000).random(),
-            initialValueComment = (0..100).random(),
-            initialValueSend = (0..500).random(),
-            onFavoriteClick = { favoriteCount-- },
-            onCommentClick = { commentCount-- },
-            onSendClick = { sendCount-- }
-        )
+            ButtonIcons(
+                initialValueFavorite = (0..1000).random(),
+                initialValueComment = (0..100).random(),
+                initialValueSend = (0..500).random(),
+                onFavoriteClick = { favoriteCount-- },
+                onCommentClick = { commentCount-- },
+                onSendClick = { sendCount-- }
+            )
 
-        Text(text = "Description", modifier = Modifier.padding(8.dp))
+            Text(text = "Description", modifier = Modifier.padding(8.dp))
 
-        Text(
-            text = "42 comments",
-            color = Color.Gray,
-            modifier = Modifier.padding(start = 16.dp, bottom = 8.dp)
-        )
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+            Text(
+                text = "42 comments",
+                color = Color.Gray,
+                modifier = Modifier.padding(start = 16.dp, bottom = 8.dp)
+            )
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
 
+            }
         }
     }
 }
@@ -228,9 +173,7 @@ fun PostRandom() {
 @Composable
 fun RoundImageCard(
     image: Painter,
-    modifier: Modifier = Modifier
-        .padding(8.dp)
-        .size(64.dp)
+    modifier: Modifier = Modifier.padding(8.dp).size(64.dp)
 ) {
     Card(shape = CircleShape, modifier = modifier) {
         Image(
