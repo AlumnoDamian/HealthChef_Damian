@@ -12,7 +12,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.damian.healthchef.ui.navigation.Screens
 import com.damian.healthchef.ui.screens.login.LoginScreen
-import com.damian.healthchef.ui.screens.login.RegisterScreen
 import com.damian.healthchef.ui.screens.other.BlogScreen
 import com.damian.healthchef.ui.screens.other.PlanificationDateScreen
 import com.damian.healthchef.ui.screens.other.RecipeScreen
@@ -22,7 +21,7 @@ import com.damian.healthchef.ui.screens.splash.SplashScreen
 import com.damian.healthchef.ui.viewmodel.BlogViewModel
 
 @Composable
-fun HealthChefApp(
+fun HealthChefAppNavigation(
     navController: NavHostController = rememberNavController()
 ) {
 
@@ -42,12 +41,7 @@ fun HealthChefApp(
                     onLoginSuccess = { navController.navigate(Screens.Home.name)}
                 )
             }
-            composable(route = Screens.Register.name) {
-                RegisterScreen(
-                    onContinueLogin = { navController.navigate(Screens.Login.name) },
-                    onRegisterSuccess = { navController.navigate(Screens.Login.name) }
-                )
-            }
+
             composable(route = Screens.Home.name){
                 val viewModel: BlogViewModel = viewModel()
                 BlogScreen(

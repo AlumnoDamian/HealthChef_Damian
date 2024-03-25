@@ -43,8 +43,11 @@ Y este para realizar el splash screen:
 ### Día 23 (Sábado)
 No hice nada
 
-### Día 22 (Hoy)
+### Día 24 (Domingo)
 Hoy estuve realizando la pantalla del calendario de planificación de recetas en donde hice un calednario que detecta el dia en el que estamos y borra los dias anteriores y tiene como limite los dias que tiene el mes, tengo pensado que tenga dos iconos en donde pueda combbiar de mes pero parece que no me sale, pero lo seguire intentando y por ultimo estuve haciendo unos card rápido para pobbra como se veia, todavia tengo que retocarlo
+
+### Día 25 (Hoy)
+Hoy estuve terminando de hacer las cards de PlanificationScreen, en donde ya tiene un poco de funcionalidad, y ahora estoy empezando a hacer la llamada a la api, en este caso utilizo la api TheMealDB para las recetas ya que es la única que he encoontrado para esto, ya que las demás, como Spoonacular o Edamam se necesita realizar un pago de subscripión y para el ultimo es muy raro el utilizar su api ya que su implementacion es rara y no tiene lo que necesito, asi que opté por TheMealDB. Todavía me faltan algunas cosas para la implementacion del TheMealDB 
 
 ### VideoTutorial
 [Login Screen en Android Jetpack Compose. Mostrar y ocultar password. Validación de campos.](https://www.youtube.com/watch?v=lC_mgTqiaSM&ab_channel=Gibr%C3%A1nGarc%C3%ADa)

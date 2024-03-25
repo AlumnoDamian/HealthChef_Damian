@@ -12,11 +12,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowLeft
 import androidx.compose.material.icons.automirrored.filled.ArrowRight
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -43,7 +49,6 @@ import androidx.compose.ui.unit.dp
 import com.damian.healthchef.ui.navigation.BottomAppBarContent
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
 import java.util.Locale
 import java.util.Timer
 import kotlin.concurrent.scheduleAtFixedRate
@@ -56,14 +61,10 @@ fun PlanificationDateScreen(
     onContinuePlanificactionDateScreen: () -> Unit,
     onContinueUserFeedScreen: () -> Unit
 ) {
-
-    val currentDayOfWeek = remember { Calendar.getInstance().get(Calendar.DAY_OF_WEEK) }
-    val currentDay = remember { Calendar.getInstance().get(Calendar.DAY_OF_MONTH) }
+    var selectedDay by remember { mutableStateOf(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)) }
 
     Scaffold(
-        topBar = {
-            TopAppBarPlanificationDate()
-        },
+        topBar = { TopAppBarPlanificationDate() },
         bottomBar = {
             BottomAppBarContent(
                 onContinueHomeScreen,
@@ -80,31 +81,10 @@ fun PlanificationDateScreen(
                 .padding(innerPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            FunctionalCalendar()
-
-            // Título con el día actual
-            Text(
-                text = "Recetas para hoy: ${SimpleDateFormat("EEEE, d MMMM", Locale("es", "ES")).format(Calendar.getInstance().time)}",
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(16.dp)
-            )
-
-            // Tarjetas para las recetas de cada día de la semana
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
-                repeat(5) { index ->
-                    val dayOfWeek = (currentDayOfWeek + index) % 7 // ciclo de días de la semana
-                    val dayRecipes = getDayRecipes(dayOfWeek) // función ficticia para obtener las recetas
-
-                    DayRecipeCard(
-                        dayOfWeek = dayOfWeek,
-                        dayRecipes = dayRecipes,
-                        onClick = { /* Acción al hacer clic en la tarjeta */ }
-                    )
-                }
-            }
+            FunctionalCalendar(onDaySelected = { day ->
+                selectedDay = day
+            })
+            RecipeSelectorCards(selectedDay)
         }
     }
 }
@@ -129,7 +109,25 @@ fun TopAppBarPlanificationDate(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun FunctionalCalendar() {
+fun RecipeSelectorCards(selectedDay: Int) {
+    LazyColumn(modifier = Modifier.fillMaxWidth()) {
+        items(5) { index ->
+            val dayOfWeek = (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) + index) % 7 // ciclo de días de la semana
+            val typeFood = getDayType(dayOfWeek) // función ficticia para obtener el tipo de comida
+
+            if (typeFood != null) {
+                DayRecipeCard(
+                    dayOfWeek = dayOfWeek,
+                    typeFood = typeFood,
+                    onClick = { /* Acción al hacer clic en la tarjeta */ }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun FunctionalCalendar(onDaySelected: (Int) -> Unit) {
     val currentDate = remember { mutableStateOf(Calendar.getInstance()) }
     var selectedDate by remember { mutableStateOf(Calendar.getInstance()) }
 
@@ -194,6 +192,7 @@ fun FunctionalCalendar() {
         }
         CalendarGrid(currentDate.value, selectedDate) { day ->
             selectedDate = day
+            onDaySelected(day.get(Calendar.DAY_OF_WEEK))
         }
     }
 }
@@ -264,49 +263,101 @@ fun CalendarDay(
 @Composable
 fun DayRecipeCard(
     dayOfWeek: Int,
-    dayRecipes: DayRecipe,
+    typeFood: TypeFood?,
     onClick: () -> Unit
 ) {
     Card(
         modifier = Modifier
-            .padding(8.dp)
-            .clickable(onClick = onClick)
+            .padding(horizontal = 8.dp, vertical = 16.dp)
+            .width(400.dp)
+            .height(90.dp)
     ) {
-        Column(
-            modifier = Modifier.padding(16.dp)
+        Row(
+            modifier = Modifier.fillMaxSize(),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                text = SimpleDateFormat("EEEE", Locale("es", "ES")).format(dayRecipes.date),
-                style = MaterialTheme.typography.titleLarge,
-                textAlign = TextAlign.Center
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            dayRecipes.recipes.forEach { recipe ->
-                Text(
-                    text = recipe.title,
-                    style = MaterialTheme.typography.titleMedium,
-                    textAlign = TextAlign.Center
+            if (typeFood != null) {
+                // Imagen de la receta
+                Box(
+                    modifier = Modifier
+                        .size(90.dp)
+                        .background(Color.Gray)
                 )
+            }
+
+            Column(
+                modifier = Modifier.padding(start = 16.dp)
+            ) {
+                // Nombre de la hora de comida
+                Text(
+                    text = typeFood?.type ?: "",
+                    style = MaterialTheme.typography.labelLarge
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                // Rectángulo para agregar receta o mostrar detalles
+                Box(
+                    modifier = Modifier
+                        .background(Color.LightGray, RoundedCornerShape(8.dp))
+                        .clickable(onClick = onClick)
+                        .padding(vertical = 4.dp, horizontal = 8.dp)
+                ) {
+                    if (typeFood == null) {
+                        // Icono "+" para agregar receta
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = "Agregar receta",
+                            modifier = Modifier.size(24.dp)
+                        )
+                    } else {
+                        // Nombre de la receta y botones para eliminar y ver detalles
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "Nombre de la receta",
+                                style = MaterialTheme.typography.labelLarge
+                            )
+
+                            Spacer(modifier = Modifier.width(16.dp))
+
+                            // Icono "-" para eliminar receta
+                            IconButton(onClick = { /* Acción al hacer clic en el botón de eliminar receta */ }) {
+                                Icon(
+                                    imageVector = Icons.Default.Remove,
+                                    contentDescription = "Eliminar receta"
+                                )
+                            }
+
+                            // Icono de detalles
+                            IconButton(onClick = { /* Acción al hacer clic en el botón de ver detalles */ }) {
+                                Icon(
+                                    imageVector = Icons.Default.ArrowDropDown,
+                                    contentDescription = "Detalles"
+                                )
+                            }
+                        }
+                    }
+                }
             }
         }
     }
 }
 
-data class Recipe(val title: String, val description: String)
-data class DayRecipe(val date: Date, val recipes: List<Recipe>)
-// Función ficticia para obtener las recetas de un día de la semana
-fun getDayRecipes(dayOfWeek: Int): DayRecipe {
-    val recipes = listOf(
-        Recipe("Receta 1", "Descripción de la receta 1"),
-        Recipe("Receta 2", "Descripción de la receta 2"),
-        Recipe("Receta 3", "Descripción de la receta 3")
+data class TypeFood(val type: String)
+fun getDayType(dayOfWeek: Int): TypeFood? {
+    val types = listOf(
+        TypeFood("Desayuno"), // Se repite para manejar el desajuste
+        TypeFood("Mediodía"),
+        TypeFood("Desayuno"),
+        TypeFood("Mediodía"),
+        TypeFood("Almuerzo"),
+        TypeFood("Merienda"),
+        TypeFood("Cena")
     )
-    return DayRecipe(Calendar.getInstance().time, recipes)
+    return types.getOrNull(dayOfWeek - 1)
 }
 
-// Función para obtener la fecha de un día de la semana dado
-fun getDateForDayOfWeek(dayOfWeek: Int): Date {
-    val calendar = Calendar.getInstance()
-    calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek)
-    return calendar.time
-}
+data class Recipe(val title: String, val description: String)
+
