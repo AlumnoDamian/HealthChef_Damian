@@ -1,6 +1,6 @@
 
-…kotlin:S6309"@Functions returning "Flow" or "Channel" should not be suspending(ÌÙœŞ8ÙŒú»ç1J$aa1002f5-c65d-4d48-a089-57cb373ff102
-…kotlin:S6309 "@Functions returning "Flow" or "Channel" should not be suspending(òæ—ƒ8ÚŒú»ç1J$31bd3cf9-cbb7-44c3-adc2-94e8ef149907
-Škotlin:S6309."@Functions returning "Flow" or "Channel" should not be suspending(èÿ–ƒüÿÿÿÿ8ÚŒú»ç1J$81eec5a0-620a-4225-88a2-05edc10633f9
-¡kotlin:S1192"]Define a constant instead of duplicating this literal "An unexpected error occurred" 6 times.(öÊî88Å÷»ç1J$0dbefc82-059b-4df9-8498-9037fbd0d809
-Àkotlin:S1192"vDefine a constant instead of duplicating this literal "Couldn't reach server. Check your internet connection" 3 times.(âÙğ¦øÿÿÿÿ8Æ÷»ç1J$6660f877-ff87-4865-9bec-738229f48e75
+…kotlin:S6309"@Functions returning "Flow" or "Channel" should not be suspending(ÌÙœŞ8·×­àç1J$7b34b27a-5f2d-4650-8b01-e8f2f3eef5aa
+…kotlin:S6309#"@Functions returning "Flow" or "Channel" should not be suspending(òæ—ƒ8·×­àç1J$0a9d6bd2-6ac2-4fe0-97b7-575ba16ee5d0
+Škotlin:S63092"@Functions returning "Flow" or "Channel" should not be suspending(èÿ–ƒüÿÿÿÿ8¸×­àç1J$d78322ee-24e0-446a-8c37-4ae18ae8d78f
+§kotlin:S1192"]Define a constant instead of duplicating this literal "An unexpected error occurred" 6 times.(œ´®‹şÿÿÿÿ8º×­àç1J$3427c313-8663-4ec2-8283-df5c117df3d1
+»kotlin:S1192"vDefine a constant instead of duplicating this literal "Couldn't reach server. Check your internet connection" 3 times.(ÔöÏ8»×­àç1J$473cc0d5-3f56-4ea9-b419-60fa71df8a69

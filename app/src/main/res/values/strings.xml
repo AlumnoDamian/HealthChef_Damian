@@ -4,9 +4,12 @@
     <string name="register">Register</string>
 
     <string name="home">Home</string>
+    <string name="category">Categorias</string>
     <string name="recipes">Recetas</string>
-    <string name="uploadRecipes">Subir Receta</string>
+    <string name="recipeDetails">Detalles de la receta</string>
+    <string name="upload">Subir</string>
     <string name="planificationDate">Planificación</string>
     <string name="userFeed">User</string>
     <string name="splashScreen">Splash</string>
+
 </resources>

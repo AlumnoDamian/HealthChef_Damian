@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.damian.healthchef.R
@@ -94,8 +95,8 @@ fun LoginScreen(
         ) {
             onLoginSuccess()
             keyboardController?.hide()
-            navController.navigate(Screens.Home.name) {
-                popUpTo(Screens.Login.name) {
+            navController.navigate(Screens.Home.route) {
+                popUpTo(Screens.Login.route) {
                     inclusive = true
                 }
                 launchSingleTop = true

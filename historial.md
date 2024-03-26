@@ -46,8 +46,13 @@ No hice nada
 ### Día 24 (Domingo)
 Hoy estuve realizando la pantalla del calendario de planificación de recetas en donde hice un calednario que detecta el dia en el que estamos y borra los dias anteriores y tiene como limite los dias que tiene el mes, tengo pensado que tenga dos iconos en donde pueda combbiar de mes pero parece que no me sale, pero lo seguire intentando y por ultimo estuve haciendo unos card rápido para pobbra como se veia, todavia tengo que retocarlo
 
-### Día 25 (Hoy)
+### Día 25 (Lunes)
 Hoy estuve terminando de hacer las cards de PlanificationScreen, en donde ya tiene un poco de funcionalidad, y ahora estoy empezando a hacer la llamada a la api, en este caso utilizo la api TheMealDB para las recetas ya que es la única que he encoontrado para esto, ya que las demás, como Spoonacular o Edamam se necesita realizar un pago de subscripión y para el ultimo es muy raro el utilizar su api ya que su implementacion es rara y no tiene lo que necesito, asi que opté por TheMealDB. Todavía me faltan algunas cosas para la implementacion del TheMealDB 
+
+### Día 26 (Hoy)
+Hoy estuve realizando la llamada a la Api tomando como referencia este github, pero presento un problema grande y es el de que cuando entro a la pantalla de receta a través del bottombar se realiza un cierre forzoso en la app, y yo creo que tiene que ser un problema ya sea el propio emulador que no funciona el internet y tendría que arreglarlo o de mi app, que tenga algun error en lo que es la navegacion a esa pantalla, pero no creo porque cuando estaba tomando como referencia el github lo estaba probando directamente y tampoco funciona, asi que espero que sea solo el emulador y lo pueda arreglar, porque sino me parece que me voy a quedar un poco atascado
+[YumYumApp](https://github.com/LcsMilhan/YumYumApp/tree/master/app/src/main/java/com/example/yumyum)
+
 
 ### VideoTutorial
 [Login Screen en Android Jetpack Compose. Mostrar y ocultar password. Validación de campos.](https://www.youtube.com/watch?v=lC_mgTqiaSM&ab_channel=Gibr%C3%A1nGarc%C3%ADa)

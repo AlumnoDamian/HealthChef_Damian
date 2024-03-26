@@ -1,13 +1,11 @@
 
 package com.damian.healthchef.ui.viewmodel
 
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.State
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.damian.healthchef.data.model.BlogState
+import com.damian.healthchef.data.state.BlogState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
