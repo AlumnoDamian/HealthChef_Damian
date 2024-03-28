@@ -1,7 +1,2 @@
 
-kotlin:S1172‰"4Remove this unused function parameter "dialogWidth".(Ù¢üëùÿÿÿÿ8—â±Àæ1J$c67d8b37-ffd4-46ec-af8c-e660949fef81
-^kotlin:S1128"Remove this unused import.(îâœu8£â±Àæ1J$b58b3665-e923-4373-ba44-515552eebfc0
-_kotlin:S1128	"Remove this unused import.(Şå²8£â±Àæ1J$db72beaa-760e-4483-8936-d9ce162ea8f6
-dkotlin:S1128"Remove this unused import.(®‘¿–ûÿÿÿÿ8£â±Àæ1J$467e0709-53a7-493b-bfa5-49256499652d
-dkotlin:S1128""Remove this unused import.(Ó¸Ñÿÿÿÿÿ8£â±Àæ1J$ef9f0852-278d-4704-a532-c2ff1207f6cc
-£kotlin:S1192<"^Define a constant instead of duplicating this literal "Las contraseÃ±as no coinciden" 3 times.(´ƒ®ÿ8¥â±Àæ1J$a845a661-e212-44b8-bbc2-13bb4a74d1f5
+£kotlin:S1192:"^Define a constant instead of duplicating this literal "Las contraseÃ±as no coinciden" 3 times.(´ƒ®ÿ8¥â±Àæ1J$3934bab4-a8d3-4418-ab3d-67a9028fa949

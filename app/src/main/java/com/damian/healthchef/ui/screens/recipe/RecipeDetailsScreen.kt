@@ -44,11 +44,10 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.damian.healthchef.data.model.recipe.MealDetail
 import com.damian.healthchef.ui.components.HeadingTextComponent
 import com.damian.healthchef.ui.components.TextTitleMealInfo
-import com.damian.healthchef.ui.viewmodel.recipe.MealDetailViewModel
 
+/*
 @Composable
 fun MealDetailScreen(
     navController: NavController,
@@ -241,7 +240,7 @@ fun MealDetailItem(
                 .clip(MaterialTheme.shapes.medium)
         ) {
             AsyncImage(
-                model = mealInfo.strMealThumb,
+                model = mealInfo.imagen,
                 contentDescription = "dish-image",
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
@@ -250,7 +249,7 @@ fun MealDetailItem(
             )
         }
         Text(
-            text = mealInfo.strMeal,
+            text = mealInfo.titulo,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.onSurface,
@@ -259,7 +258,7 @@ fun MealDetailItem(
                 .padding(vertical = 5.dp)
         )
         Text(
-            text = mealInfo.strCategory,
+            text = mealInfo.categoria,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.labelLarge,
             color = MaterialTheme.colorScheme.primary,
@@ -268,7 +267,7 @@ fun MealDetailItem(
                 .padding(top = 10.dp)
         )
         Text(
-            text = mealInfo.strArea,
+            text = mealInfo.area,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.labelLarge,
             color = MaterialTheme.colorScheme.primary,
@@ -291,16 +290,16 @@ fun MealIngredients(
     mealInfo: MealDetail
 ) {
     val ingredients = listOf(
-        mealInfo.strIngredient1 to mealInfo.strMeasure1,
-        mealInfo.strIngredient2 to mealInfo.strMeasure2,
-        mealInfo.strIngredient3 to mealInfo.strMeasure3,
-        mealInfo.strIngredient4 to mealInfo.strMeasure4,
-        mealInfo.strIngredient5 to mealInfo.strMeasure5,
-        mealInfo.strIngredient6 to mealInfo.strMeasure6,
-        mealInfo.strIngredient7 to mealInfo.strMeasure7,
-        mealInfo.strIngredient8 to mealInfo.strMeasure8,
-        mealInfo.strIngredient9 to mealInfo.strMeasure9,
-        mealInfo.strIngredient10 to mealInfo.strMeasure10
+        mealInfo.ingrediente1 to mealInfo.cantidad1,
+        mealInfo.ingrediente2 to mealInfo.cantidad2,
+        mealInfo.ingrediente3 to mealInfo.cantidad3,
+        mealInfo.ingrediente4 to mealInfo.cantidad4,
+        mealInfo.ingrediente5 to mealInfo.cantidad5,
+        mealInfo.ingrediente6 to mealInfo.cantidad6,
+        mealInfo.ingrediente7 to mealInfo.cantidad7,
+        mealInfo.ingrediente8 to mealInfo.cantidad8,
+        mealInfo.ingrediente9 to mealInfo.cantidad9,
+        mealInfo.ingrediente10 to mealInfo.cantidad10
     )
 
     Column(
@@ -337,7 +336,7 @@ fun MealIngredients(
 fun MealInstructions(
     mealInfo: MealDetail
 ) {
-    val instructions = mealInfo.strInstructions
+    val instructions = mealInfo.instrucciones
         .replace("\\r\\n", "\n")
         .replace("\n", "\n\n")
         .trim()
@@ -357,4 +356,4 @@ fun MealInstructions(
                 .padding(5.dp)
         )
     }
-}
+}*/

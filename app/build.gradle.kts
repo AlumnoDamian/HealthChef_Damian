@@ -68,6 +68,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    //Room
+    implementation("androidx.room:room-runtime:2.4.0")
+
     //Coil
     implementation("io.coil-kt:coil-compose:2.6.0")
 
@@ -93,5 +96,4 @@ dependencies {
     //Iconos extendidos
     implementation(libs.androidx.material.icons.extended.android)
     implementation ("com.google.android.material:material:1.11.0")
-
 }

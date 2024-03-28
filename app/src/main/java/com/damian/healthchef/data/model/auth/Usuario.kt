@@ -4,9 +4,12 @@ data class Usuario(
     val id_usuario: String?,
     val nombre_usuario: String,
     val correo_electronico: String,
+    val seguidores: List<String>,
     val cantidad_seguidores: Int,
+    val siguiendo: List<String>,
     val cantidad_siguiendo: Int,
-    val cantidad_post: Int,
+    val post: List<Post>,
+    val cantidad_post: Int
 ){
     fun toMap(): MutableMap<String, Any>{
         return mutableMapOf(

@@ -49,10 +49,15 @@ Hoy estuve realizando la pantalla del calendario de planificación de recetas en
 ### Día 25 (Lunes)
 Hoy estuve terminando de hacer las cards de PlanificationScreen, en donde ya tiene un poco de funcionalidad, y ahora estoy empezando a hacer la llamada a la api, en este caso utilizo la api TheMealDB para las recetas ya que es la única que he encoontrado para esto, ya que las demás, como Spoonacular o Edamam se necesita realizar un pago de subscripión y para el ultimo es muy raro el utilizar su api ya que su implementacion es rara y no tiene lo que necesito, asi que opté por TheMealDB. Todavía me faltan algunas cosas para la implementacion del TheMealDB 
 
-### Día 26 (Hoy)
+### Día 26 (Martes)
 Hoy estuve realizando la llamada a la Api tomando como referencia este github, pero presento un problema grande y es el de que cuando entro a la pantalla de receta a través del bottombar se realiza un cierre forzoso en la app, y yo creo que tiene que ser un problema ya sea el propio emulador que no funciona el internet y tendría que arreglarlo o de mi app, que tenga algun error en lo que es la navegacion a esa pantalla, pero no creo porque cuando estaba tomando como referencia el github lo estaba probando directamente y tampoco funciona, asi que espero que sea solo el emulador y lo pueda arreglar, porque sino me parece que me voy a quedar un poco atascado
 [YumYumApp](https://github.com/LcsMilhan/YumYumApp/tree/master/app/src/main/java/com/example/yumyum)
 
+### Día 27 (Miercoles)
+Hoy estuve intentado hacer lo de la api, pero parece que lo voy a dejar, porque aparte de que no me sale, tambien es porque van mal las apis que encuentor, no están bien establecidos los get para poder realizar las llamadas y encima no hay al menos una guía reciente para poder hacer esas llamadas. Además, las apis que veo hay que realizar una subscripción, Así que he decidido que voy a utilizar Firebase que es una base de datos de Google en donde se puede realizar la autenticación de usuarios y la base de datos es en tiempo real, perfecto para mi ya que puedo poner una lista de recetas por defecto y si quiero crear otra receta lo puedo hacer fácil, ademas que sirve para que los usuarios puedan hacer sus recetas y subirlas para que otros lo vean
+
+### Día 28 (Hoy)
+Hoy estuve modificando el proyecto y empecé con lo de Firebase, ya tengo hecho la autenticación básica del usuario, ya lo que sería es una autenticación mas amplia, como cambiar nombre de usuario, cerrar sesion, etc. De momento solo hay de crear usuario e iniciar sesion con google o a traves de la app. Mañana empezaré con los usuarios para que puedan subir post y seguir a otros usuarios, ver sus seguidores y los que sigue y los post que ha subido el usuario
 
 ### VideoTutorial
 [Login Screen en Android Jetpack Compose. Mostrar y ocultar password. Validación de campos.](https://www.youtube.com/watch?v=lC_mgTqiaSM&ab_channel=Gibr%C3%A1nGarc%C3%ADa)

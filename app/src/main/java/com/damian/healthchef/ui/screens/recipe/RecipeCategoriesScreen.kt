@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -25,24 +24,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import coil.compose.AsyncImage
-import com.damian.healthchef.data.model.recipe.Category
 import com.damian.healthchef.ui.components.HeadingTextComponent
-import com.damian.healthchef.ui.viewmodel.recipe.CategoryListViewModel
-
+/*
 @Composable
-fun CategoriesScreen(
-    onCategoryClick: (String) -> Unit,
-    navController: NavController,
-    viewModel: CategoryListViewModel = hiltViewModel()
-) {
+fun CategoriesScreen(onCategoryClick: (String) -> Unit) {
 
     val state by viewModel.state.collectAsState()
 
@@ -112,14 +102,6 @@ fun SingleCategoryItem(
         )
     ) {
         Row(Modifier.fillMaxWidth().padding(PaddingValues(5.dp))) {
-            AsyncImage(
-                model = categoryItem.strCategoryThumb,
-                contentDescription = "category-image",
-                contentScale = ContentScale.FillWidth,
-                modifier = Modifier
-                    .align(CenterVertically)
-                    .clip(MaterialTheme.shapes.medium)
-            )
             Spacer(
                 modifier = Modifier
                     .width(25.dp)
@@ -143,4 +125,4 @@ fun SingleCategoryItem(
             )
         }
     }
-}
+}*/

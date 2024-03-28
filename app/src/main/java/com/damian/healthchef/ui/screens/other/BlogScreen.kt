@@ -45,7 +45,7 @@ import androidx.compose.ui.unit.dp
 import com.damian.healthchef.R
 import com.damian.healthchef.ui.components.ButtonIcons
 import com.damian.healthchef.ui.navigation.BottomAppBarContent
-import com.damian.healthchef.ui.viewmodel.BlogViewModel
+import com.damian.healthchef.viewmodel.BlogViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
