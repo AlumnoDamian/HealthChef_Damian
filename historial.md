@@ -59,6 +59,17 @@ Hoy estuve intentado hacer lo de la api, pero parece que lo voy a dejar, porque 
 ### Día 28 (Hoy)
 Hoy estuve modificando el proyecto y empecé con lo de Firebase, ya tengo hecho la autenticación básica del usuario, ya lo que sería es una autenticación mas amplia, como cambiar nombre de usuario, cerrar sesion, etc. De momento solo hay de crear usuario e iniciar sesion con google o a traves de la app. Mañana empezaré con los usuarios para que puedan subir post y seguir a otros usuarios, ver sus seguidores y los que sigue y los post que ha subido el usuario
 
+### Día 29 (Viernes)
+Hoy no hice nada
+
+### Día 30 (Sabado)
+Hoy estuve intentando hacer la pantalla del post en Firebase Firestore pero parece que no funciona, porque no me sale, y se me cierra la app cada vez que lo intento hacer y ya no se que más hacer, me parece que lo voy a tener que dejar. Me pondré a hacer como si fuese un CRUD de recetas donde el usuario se logueé y pueda crear sus recetas y ver recetas y sus favoritos.
+
+### Día 31 (Domingo)
+Hoy estuve intentando hacer que sea una base de datos con Room para hacer las recetas, pero parece que ahora cada vez que intento entrar se me cierra la app, y no entiendo porque y mira que veo lo que hacen otros, pero es que a mi no me funciona
+
+### Día 1 (Hoy)
+Hoy por la mañana realizé un cambio en mi proyecto donde cambie la funcionalidad del bottom bar y ahora funciona correctamente haciendo el navController, despues estuve intentando poner el Room para almacenar los datos en local pero me daba error y me echaba de la app, lo intentaré en casa. He estado mirando el logcat para ver cual era el error y al final lo pude solucionar, era un error tonto, pero hacía que se me cerrase la app.
 ### VideoTutorial
 [Login Screen en Android Jetpack Compose. Mostrar y ocultar password. Validación de campos.](https://www.youtube.com/watch?v=lC_mgTqiaSM&ab_channel=Gibr%C3%A1nGarc%C3%ADa)
 
