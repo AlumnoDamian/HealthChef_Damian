@@ -55,7 +55,7 @@ fun LoginScreen(
             val account = task.getResult(ApiException::class.java)
             val credential = GoogleAuthProvider.getCredential(account.idToken, null)
             signInViewModel.signInWithGoogleCredential(credential) {
-                navController.navigate(Screens.Home.route)
+                navController.navigate(Screens.BottomBarScreens.Recipe.route)
             }
         } catch (ex: Exception) {
             Log.d("HealthChef", "GoogleSignIn falló")
@@ -84,7 +84,7 @@ fun LoginScreen(
                     viewModel = signInViewModel,
                     onLoginSuccess =  { email, password ->
                         signInViewModel.signInWithEmailAndPassword(email, password) {
-                            navController.navigate(Screens.Home.route)
+                            navController.navigate(Screens.BottomBarScreens.Recipe.route)
                         }
                     },
                     onContinueRegister = { showLoginForm = false }
@@ -94,7 +94,7 @@ fun LoginScreen(
                     viewModel = registerViewModel,
                     onRegisterSuccess = { username, email, password ->
                         registerViewModel.createUserWithEmailAndPassword(username, email, password) {
-                            navController.navigate(Screens.Login.route)
+                            navController.navigate(Screens.BottomBarScreens.Login.route)
                         }
                     },
                     onContinueLogin = { showLoginForm = true },

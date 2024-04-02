@@ -4,18 +4,40 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.damian.healthchef.data.model.Usuario
 import com.google.firebase.Firebase
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.toObject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class SignInViewModel: ViewModel() {
     private val auth: FirebaseAuth = Firebase.auth
-    private val _loading = MutableLiveData(false)
+    private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
+    val currentUser = MutableLiveData<String?>()
 
+    fun loadUserData() {
+        val userId = auth.currentUser?.uid
+        if (userId != null) {
+            viewModelScope.launch {
+                val userRef = firestore.collection("usuarios").document(userId)
+                val userSnapshot = userRef.get().await()
+
+                if (userSnapshot.exists()) {
+                    val user = userSnapshot.toObject<Usuario>()
+                    currentUser.value = user?.nombre_usuario
+                }
+            }
+        }
+    }
     fun signInWithGoogleCredential(credential: AuthCredential, onLoginSucces: () -> Unit)
-    = viewModelScope.launch {
+            = viewModelScope.launch {
         try {
             auth.signInWithCredential(credential)
                 .addOnCompleteListener { task ->
@@ -33,7 +55,7 @@ class SignInViewModel: ViewModel() {
 
     }
     fun signInWithEmailAndPassword(email: String, password: String, onLoginSucces: () -> Unit)
-    = viewModelScope.launch {
+            = viewModelScope.launch {
         try {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
@@ -48,5 +70,4 @@ class SignInViewModel: ViewModel() {
             Log.d("HealthChef", "Iniciar sesion: ${ex.message} ")
         }
     }
-
 }

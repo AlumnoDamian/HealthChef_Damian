@@ -1,15 +1,3 @@
 <resources>
     <string name="app_name">HealthChef</string>
-    <string name="login">Iniciar Sesión</string>
-    <string name="register">Register</string>
-
-    <string name="home">Home</string>
-    <string name="category">Categorias</string>
-    <string name="recipes">Recetas</string>
-    <string name="recipeDetails">Detalles de la receta</string>
-    <string name="upload">Subir</string>
-    <string name="planificationDate">Planificación</string>
-    <string name="userFeed">User</string>
-    <string name="splashScreen">Splash</string>
-
 </resources>

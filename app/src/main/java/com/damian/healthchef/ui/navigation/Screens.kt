@@ -1,14 +1,67 @@
 package com.damian.healthchef.ui.navigation
 
-sealed class Screens(val route: String) {
-    data object SplashScreen: Screens("splash_screen")
-    data object Login: Screens("login_screen")
-    data object Register: Screens("register_screen")
-    data object Home: Screens("home_screen")
-    data object RecipeCategories: Screens("recipe_category_screen")
-    data object Recipe: Screens("recipe_list_screen")
-    data object RecipeDetails: Screens("recipe")
-    data object Upload: Screens("upload")
-    data object PlanificationDate: Screens("planification_date")
-    data object UserFeed: Screens("user_feed")
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.CalendarMonth
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.rounded.AccountCircle
+import androidx.compose.material.icons.rounded.ShoppingCart
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.navigation.NamedNavArgument
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
+import com.damian.healthchef.R
+
+sealed class Screens(
+    val route: String,
+    val arguments: List<NamedNavArgument>? = null
+){
+
+    object RecipeDetailsScreen : Screens(
+        route = "recipe/details",
+        arguments = listOf(
+            navArgument("recipeId") {
+                type = NavType.IntType
+            }
+        )
+    )
+
+
+    sealed class BottomBarScreens(
+        route: String,
+        val title: String,
+        val icon: ImageVector? = null
+    ) : Screens(route) {
+
+        object Login : BottomBarScreens(
+            route = "login",
+            title = "Login"
+        )
+        object Recipe : BottomBarScreens(
+            route = "recipe",
+            title = "Recetas",
+        )
+
+        object PlanificationDate : BottomBarScreens(
+            route = "planificationDate",
+            title = "Planificación",
+            icon = Icons.Outlined.CalendarMonth
+        )
+
+        object Perfil : BottomBarScreens(
+            route = "perfil",
+            title = "Perfil",
+            icon = Icons.Outlined.Person
+        )
+
+    }
+
+    fun withArgs(vararg args: String): String {
+        return buildString {
+            append(route)
+            args.forEach { arg ->
+                append("/{$arg}")
+            }
+        }
+    }
+
 }

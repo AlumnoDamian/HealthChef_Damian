@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.damian.healthchef.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth

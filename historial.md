@@ -68,8 +68,13 @@ Hoy estuve intentando hacer la pantalla del post en Firebase Firestore pero pare
 ### Día 31 (Domingo)
 Hoy estuve intentando hacer que sea una base de datos con Room para hacer las recetas, pero parece que ahora cada vez que intento entrar se me cierra la app, y no entiendo porque y mira que veo lo que hacen otros, pero es que a mi no me funciona
 
-### Día 1 (Hoy)
+### Día 1 (Lunes)
 Hoy por la mañana realizé un cambio en mi proyecto donde cambie la funcionalidad del bottom bar y ahora funciona correctamente haciendo el navController, despues estuve intentando poner el Room para almacenar los datos en local pero me daba error y me echaba de la app, lo intentaré en casa. He estado mirando el logcat para ver cual era el error y al final lo pude solucionar, era un error tonto, pero hacía que se me cerrase la app.
+
+### Día 2 (Martes)
+Hoy estuve en clase intentando hacer mas cosas, pero por un error me tuvo todo el dia, y era porque se me cerraba la app cuando intentaba editar la receta pero se me cerraba porque no ponia ningun valor dentro de la receta, pero probé a colocar datos y ahora funciona correctamente. Después me puse en casa a intentar hacer para que se pudiese dividir en categorias pero no me sale, así que lo dejé, pero despues me puse a hacer la pestaña en donde se te guardan todas tus recetas favoritas y tambien la pantalla para ver los detalles de la receta, todavia falta por retocar, pero hay un icono de corazon que si clickas en el se te guarda la receta en la pantalla de usuario. Tambien vi que si cambias el modelo de datos, por ejemplo añadiendo una consulta o un campo a alguna entidad se te cierra la app porque Room quiere que actualizes la version de la Database y he visto 2 formas de hacerlo, 1. Hacer una función donde donde haga un conversor de la database donde hay que añadir los cambios que se han hecho en la database o 2. Borrar la app cuando inicializo el emulador dandole arriba en la barra de herramientas Tools, entrar en ADB Idea y darle a ADB Uninstall App. Aquí es donde lo ví:
+[Actualizar Database de Room/Desinstalar App](https://github.com/android/codelab-android-workmanager/issues/283)
+
 ### VideoTutorial
 [Login Screen en Android Jetpack Compose. Mostrar y ocultar password. Validación de campos.](https://www.youtube.com/watch?v=lC_mgTqiaSM&ab_channel=Gibr%C3%A1nGarc%C3%ADa)
 

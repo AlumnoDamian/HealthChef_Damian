@@ -93,7 +93,7 @@ fun ButtonLogOut(onLogOut: () -> Unit){
         },
         modifier = Modifier
             .padding(10.dp)
-            .width(300.dp),
+            .fillMaxWidth(),
         shape = CircleShape,
     ) {
         Text(
@@ -239,6 +239,7 @@ fun GoogleLoginButton(
         )
         Text(
             text = "Login con Google",
+            color = MaterialTheme.colorScheme.background,
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold
         )

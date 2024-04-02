@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("com.google.gms.google-services")
+    id("kotlin-kapt")
 }
 
 android {
@@ -10,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.damian.healthchef"
-        minSdk = 21
+        minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -68,32 +69,24 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    //Room
-    implementation("androidx.room:room-runtime:2.4.0")
-
-    //Coil
-    implementation("io.coil-kt:coil-compose:2.6.0")
-
-    //Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-
-    //SwipeRefresh
-    implementation(libs.accompanist.swiperefresh)
+    // Room
+    implementation("androidx.room:room-ktx:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
 
     //NavController
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.hilt.navigation.compose)
 
     //Firebase
-    implementation(platform("com.google.firebase:firebase-bom:32.7.4"))
+    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
 
     //Google services
-    implementation(libs.play.services.auth)
+    implementation("com.google.android.gms:play-services-auth:21.0.0")
 
     //Iconos extendidos
-    implementation(libs.androidx.material.icons.extended.android)
-    implementation ("com.google.android.material:material:1.11.0")
+    implementation("androidx.compose.material:material-icons-extended:1.6.4")
+    implementation("com.google.android.material:material:1.11.0")
 }
