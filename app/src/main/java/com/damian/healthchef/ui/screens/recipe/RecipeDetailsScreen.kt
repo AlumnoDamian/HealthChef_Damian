@@ -2,6 +2,7 @@
 
 package com.damian.healthchef.ui.screens.recipe
 
+import androidx.compose.foundation.Image
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.ui.text.style.TextOverflow
@@ -10,6 +11,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -20,6 +23,7 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
@@ -40,8 +44,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.damian.healthchef.R
 import com.damian.healthchef.data.model.Recipe
 import com.damian.healthchef.viewmodel.recipe.RecipeViewModel
 
@@ -95,9 +102,7 @@ fun RecipeDetails(
     var isRecipeFavorite by remember { mutableStateOf(isFavorite) }
 
     Card(
-        Modifier
-            .padding(8.dp)
-            .fillMaxWidth(),
+        Modifier.padding(4.dp).fillMaxWidth(),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 10.dp
         ),
@@ -106,62 +111,73 @@ fun RecipeDetails(
         ),
         shape = MaterialTheme.shapes.medium
     ) {
-        Row {
+        
             Column {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "Nombre: ${recipe.nombre}",
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier.padding(5.dp)
-                    )
-                    Text(
-                        text = "Descripcion: ${recipe.descripcion}",
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier.padding(5.dp)
-                    )
-                    Text(
-                        text = "Ingredientes: ${recipe.ingredientes}",
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier.padding(5.dp)
-                    )
-                    Text(
-                        text = "Intrucciones: ${recipe.instrucciones}",
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier.padding(5.dp)
-                    )
-                    Text(
-                        text = "Tiempo de preparación: ${recipe.tiempoDePreparacion} ",
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier.padding(5.dp)
-                    )
-                    Text(
-                        text = "Calorias: ${recipe.calorias}",
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier.padding(5.dp)
-                    )
-                    Text(
-                        text = "Grasas: ${recipe.grasas}",
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier.padding(5.dp)
-                    )
-                    Text(
-                        text = "Proteinas: ${recipe.proteinas}",
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier.padding(5.dp)
-                    )
-                }
+                Image(
+                    painter = painterResource(id = R.drawable.ic_launcher_background),
+                    contentDescription = "Image Background",
+                    modifier = Modifier.fillMaxSize().aspectRatio(16f / 9f), // Set aspect ratio to 16:9
+                    contentScale = ContentScale.Crop
+                )
+                Text(
+                    text = recipe.nombre,
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.padding(5.dp).align(Alignment.CenterHorizontally) // Align text to center horizontally
 
+                )
+                Text(
+                    text = "Descripcion: ${recipe.descripcion}",
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.padding(5.dp)
+                )
+                Text(
+                    text = "Ingredientes:",
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.padding(5.dp)
+                )
+                recipe.ingredientes.forEach { ingrediente ->
+                    Row(
+                        modifier = Modifier.padding(start = 16.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text("• ", style = MaterialTheme.typography.bodyLarge)
+                        Text(ingrediente, style = MaterialTheme.typography.bodyLarge)
+                    }
+                }
+                Text(
+                    text = "Intrucciones: ${recipe.instrucciones}",
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.padding(5.dp)
+                )
+                Text(
+                    text = "Tiempo de preparación: ${recipe.tiempoDePreparacion} ",
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.padding(5.dp)
+                )
+                Text(
+                    text = "Calorias: ${recipe.calorias}",
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.padding(5.dp)
+                )
+                Text(
+                    text = "Grasas: ${recipe.grasas}",
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.padding(5.dp)
+                )
+                Text(
+                    text = "Proteinas: ${recipe.proteinas}",
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.padding(5.dp)
+                )
+                
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Row(
@@ -180,6 +196,5 @@ fun RecipeDetails(
                 }
             }
         }
-
-    }
+    
 }

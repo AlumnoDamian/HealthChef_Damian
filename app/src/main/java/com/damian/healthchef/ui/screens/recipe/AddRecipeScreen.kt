@@ -1,7 +1,6 @@
 package com.damian.healthchef.ui.screens.recipe
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -10,7 +9,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -150,10 +148,12 @@ fun ContentAgregarView(it: PaddingValues, navController: NavController, recipeVi
 
 
             Button(onClick = {
+                val listaIngredientes = ingredientes.split(",").map { it.trim() }
+
                 val insertRecipe = Recipe(
                     nombre = nombre,
                     descripcion = descripcion,
-                    ingredientes = ingredientes,
+                    ingredientes = listaIngredientes,
                     instrucciones = instrucciones,
                     tiempoDePreparacion = tiempoDePreparacion,
                     calorias = calorias,

@@ -1,7 +1,6 @@
 package com.damian.healthchef.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -62,6 +61,8 @@ fun HealthChefAppNavigation(
                 navArgument("proteinas") { type = NavType.StringType }
             )
         ) {
+            val ingredientes = it.arguments?.getString("ingredientes")?.split(",") ?: emptyList()
+
             RecipeDetailsScreen(
                 navController = navController,
                 recipeViewModel = recipeViewModel,
@@ -69,7 +70,7 @@ fun HealthChefAppNavigation(
                     id = it.arguments?.getInt("id") ?: -1,
                     nombre = it.arguments?.getString("nombre") ?: "",
                     descripcion = it.arguments?.getString("descripcion") ?: "",
-                    ingredientes = it.arguments?.getString("ingredientes") ?: "",
+                    ingredientes = ingredientes,
                     instrucciones = it.arguments?.getString("instrucciones") ?: "",
                     tiempoDePreparacion = it.arguments?.getString("tiempoDePreparacion") ?: "",
                     calorias = it.arguments?.getString("calorias") ?: "",
@@ -95,13 +96,15 @@ fun HealthChefAppNavigation(
                     navArgument("proteinas"){ type = NavType.StringType}
                 )
         ) {
+            val ingredientes = it.arguments?.getString("ingredientes")?.split(",") ?: emptyList()
+
             EditarView(
                 navController,
                 recipeViewModel,
                 it.arguments!!.getInt("id"),
                 it.arguments?.getString("nombre"),
                 it.arguments?.getString("descripcion"),
-                it.arguments?.getString("ingredientes"),
+                ingredientes,
                 it.arguments?.getString("instrucciones"),
                 it.arguments?.getString("tiempoDePreparacion"),
                 it.arguments?.getString("calorias"),

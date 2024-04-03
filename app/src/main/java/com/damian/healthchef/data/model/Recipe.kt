@@ -13,7 +13,7 @@ data class Recipe(
     @ColumnInfo("Marca")
     val descripcion: String,
     @ColumnInfo(name = "Ingredientes")
-    val ingredientes: String,
+    val ingredientes: List<String>,
     @ColumnInfo(name = "Instrucciones")
     val instrucciones: String,
     @ColumnInfo(name = "Tiempo_de_preparacion")

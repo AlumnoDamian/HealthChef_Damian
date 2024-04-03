@@ -1,19 +1,14 @@
 package com.damian.healthchef.ui.screens.recipe
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -41,7 +36,7 @@ fun EditarView(
     id: Int,
     nombre: String?,
     descripcion: String?,
-    ingredientes: String?,
+    ingredientes: List<String>?,
     instrucciones: String?,
     tiempoDePreparacion: String?,
     calorias: String?,
@@ -91,7 +86,7 @@ fun ContentEditarView(
     id: Int,
     nombre: String?,
     descripcion: String?,
-    ingredientes: String?,
+    ingredientes: List<String>?,
     instrucciones: String?,
     tiempoDePreparacion: String?,
     calorias: String?,
@@ -100,7 +95,7 @@ fun ContentEditarView(
 ){
     var nombre by remember { mutableStateOf("") }
     var descripcion by remember { mutableStateOf("") }
-    var ingredientes by remember { mutableStateOf("") }
+    var ingredientesText by remember { mutableStateOf("") }
     var instrucciones by remember { mutableStateOf("") }
     var tiempoDePreparacion by remember { mutableStateOf("") }
     var calorias by remember { mutableStateOf("") }
@@ -135,8 +130,8 @@ fun ContentEditarView(
                     .padding(bottom = 15.dp)
             )
             OutlinedTextField(
-                value = ingredientes ?: "",
-                onValueChange = { ingredientes = it},
+                value = ingredientesText ?: ingredientes?.joinToString(", ") ?: "",
+                onValueChange = { ingredientesText  = it},
                 label = { Text(text = "Ingredientes") },
                 modifier = Modifier
                     .fillMaxWidth()

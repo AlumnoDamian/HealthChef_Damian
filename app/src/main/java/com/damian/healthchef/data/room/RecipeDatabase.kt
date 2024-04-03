@@ -12,6 +12,7 @@ import com.damian.healthchef.data.model.Recipe
     version = 1,
     exportSchema = false
 )
+@TypeConverters(Converters::class)
 abstract class RecipeDatabase : RoomDatabase() {
     abstract fun recipeDao(): RecipeDao
 
