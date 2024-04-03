@@ -33,12 +33,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -59,9 +61,15 @@ fun RecipeScreen(
         topBar = { TopAppBarRecipe() },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { navController.navigate("agregar") }
+                onClick = { navController.navigate("agregar") },
+                containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                contentColor = MaterialTheme.colorScheme.onSecondary
             ) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Agregar")
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "Agregar",
+                    tint = MaterialTheme.colorScheme.background
+                )
             }
         },
         bottomBar = { BottomBarContent(navController = navController) }
@@ -99,14 +107,7 @@ fun TopAppBarRecipe(modifier: Modifier = Modifier) {
         colors = TopAppBarDefaults.mediumTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.primary
         ),
-        modifier = modifier,
-        navigationIcon = {  },
-        actions = {
-            Icon(
-                imageVector = Icons.Default.Search,
-                contentDescription = "Busqueda"
-            )
-        }
+        modifier = modifier
     )
 }
 

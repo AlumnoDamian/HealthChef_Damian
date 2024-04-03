@@ -61,7 +61,6 @@ fun PlanificationDateScreen(
     var selectedDay by remember { mutableStateOf(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)) }
 
     Scaffold(
-        topBar = { TopAppBarPlanificationDate() },
         bottomBar = { BottomBarContent(navController = navController) }
     ) { innerPadding ->
         Column(
@@ -76,25 +75,6 @@ fun PlanificationDateScreen(
             RecipeSelectorCards(selectedDay)
         }
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TopAppBarPlanificationDate(modifier: Modifier = Modifier) {
-    TopAppBar(
-        title = { Text(text = "Planificación") },
-        colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primary
-        ),
-        modifier = modifier,
-        navigationIcon = {  },
-        actions = {
-            Icon(
-                imageVector = Icons.Default.Search,
-                contentDescription = "Busqueda"
-            )
-        }
-    )
 }
 
 @Composable

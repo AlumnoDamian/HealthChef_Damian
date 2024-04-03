@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
 
 package com.damian.healthchef.ui.screens.recipe
 
@@ -41,16 +41,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.ParagraphStyle
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.damian.healthchef.R
 import com.damian.healthchef.data.model.Recipe
 import com.damian.healthchef.viewmodel.recipe.RecipeViewModel
+import com.google.common.io.Files.append
 
 @Composable
 fun RecipeDetailsScreen(
@@ -59,7 +67,7 @@ fun RecipeDetailsScreen(
     recipeItem: Recipe
 ) {
 
-    val isFavorite by remember { mutableStateOf(recipeItem.isFavorite) }
+    val isFavorite by rememberSaveable { mutableStateOf(recipeItem.isFavorite) }
 
     Scaffold(
         topBar = {
@@ -93,16 +101,19 @@ fun RecipeDetailsScreen(
     }
 }
 
+
 @Composable
 fun RecipeDetails(
     recipe: Recipe,
     isFavorite: Boolean,
     onFavoriteRecipeClick: () -> Unit
 ) {
-    var isRecipeFavorite by remember { mutableStateOf(isFavorite) }
+    var isRecipeFavorite by rememberSaveable { mutableStateOf(isFavorite) }
 
     Card(
-        Modifier.padding(4.dp).fillMaxWidth(),
+        Modifier
+            .padding(4.dp)
+            .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 10.dp
         ),
@@ -116,68 +127,131 @@ fun RecipeDetails(
                 Image(
                     painter = painterResource(id = R.drawable.ic_launcher_background),
                     contentDescription = "Image Background",
-                    modifier = Modifier.fillMaxSize().aspectRatio(16f / 9f), // Set aspect ratio to 16:9
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .aspectRatio(16f / 9f), // Set aspect ratio to 16:9
                     contentScale = ContentScale.Crop
                 )
+
                 Text(
                     text = recipe.nombre,
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.padding(5.dp).align(Alignment.CenterHorizontally) // Align text to center horizontally
+                    modifier = Modifier
+                        .padding(5.dp)
+                        .align(Alignment.CenterHorizontally)
+                )
 
-                )
                 Text(
-                    text = "Descripcion: ${recipe.descripcion}",
+                    text = "Descripcion",
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.padding(5.dp)
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(8.dp)
                 )
                 Text(
-                    text = "Ingredientes:",
-                    style = MaterialTheme.typography.titleLarge,
+                    text = buildAnnotatedString {
+                            withStyle(style = SpanStyle(fontSize = 18.sp)) {
+                                append(recipe.descripcion)
+                            }
+                    },
                     color = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.padding(5.dp)
+                    modifier = Modifier.padding(start = 16.dp)
                 )
-                recipe.ingredientes.forEach { ingrediente ->
-                    Row(
-                        modifier = Modifier.padding(start = 16.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text("• ", style = MaterialTheme.typography.bodyLarge)
-                        Text(ingrediente, style = MaterialTheme.typography.bodyLarge)
-                    }
-                }
+
+                Text(
+                    text = "Ingredientes",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(8.dp)
+                )
+                Text(
+                    text = buildAnnotatedString {
+                        recipe.ingredientes.split(",").forEachIndexed { index, ingrediente ->
+                            withStyle(style = SpanStyle(fontSize = 18.sp)) {
+                                append("• ")
+                                append(ingrediente.trim())
+                                if (index != recipe.ingredientes.split(",").size - 1) {
+                                    appendLine()
+                                }
+                            }
+                        }
+                    },
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.padding(start = 16.dp)
+                )
+
                 Text(
                     text = "Intrucciones: ${recipe.instrucciones}",
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.padding(5.dp)
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(8.dp)
                 )
                 Text(
-                    text = "Tiempo de preparación: ${recipe.tiempoDePreparacion} ",
-                    style = MaterialTheme.typography.titleLarge,
+                    text = buildAnnotatedString {
+                        withStyle(style = SpanStyle(fontSize = 18.sp)) {
+                            append(recipe.descripcion)
+                        }
+                    },
                     color = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.padding(5.dp)
+                    modifier = Modifier.padding(start = 16.dp)
                 )
+
                 Text(
-                    text = "Calorias: ${recipe.calorias}",
-                    style = MaterialTheme.typography.titleLarge,
+                    text = buildAnnotatedString {
+                        withStyle(style = SpanStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold)) {
+                            append("Tiempo de preparacion: ")
+                        }
+                        withStyle(style = SpanStyle(fontSize = 18.sp)) {
+                            append("${recipe.tiempoDePreparacion} m/h")
+                        }
+                    },
                     color = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.padding(5.dp)
+                    modifier = Modifier.padding(8.dp)
                 )
+
                 Text(
-                    text = "Grasas: ${recipe.grasas}",
-                    style = MaterialTheme.typography.titleLarge,
+                    text = buildAnnotatedString {
+                        withStyle(style = SpanStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold)) {
+                            append("Calorias: ")
+                        }
+                        withStyle(style = SpanStyle(fontSize = 18.sp)) {
+                            append(recipe.calorias)
+                        }
+                    },
                     color = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.padding(5.dp)
+                    modifier = Modifier.padding(8.dp)
                 )
+
                 Text(
-                    text = "Proteinas: ${recipe.proteinas}",
-                    style = MaterialTheme.typography.titleLarge,
+                    text = buildAnnotatedString {
+                        withStyle(style = SpanStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold)) {
+                            append("Grasas: ")
+                        }
+                        withStyle(style = SpanStyle(fontSize = 18.sp)) {
+                            append(recipe.grasas)
+                        }
+                    },
                     color = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.padding(5.dp)
+                    modifier = Modifier.padding(8.dp)
                 )
-                
+
+                Text(
+                    text = buildAnnotatedString {
+                        withStyle(style = SpanStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold)) {
+                            append("Proteinas: ")
+                        }
+                        withStyle(style = SpanStyle(fontSize = 18.sp)) {
+                            append(recipe.proteinas)
+                        }
+                    },
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.padding(8.dp)
+                )
+
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Row(

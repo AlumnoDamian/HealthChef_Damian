@@ -62,7 +62,6 @@ fun UserFeedScreen(
     val favoriteRecipes by recipeViewModel.listRecipe.collectAsState(initial = emptyList())
 
     Scaffold(
-        topBar = { TopAppBarUserFeed() },
         bottomBar = { BottomBarContent(navController = navController) }
     ) { innerPadding ->
         LazyColumn(
@@ -89,25 +88,6 @@ fun UserFeedScreen(
 
         }
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TopAppBarUserFeed(modifier: Modifier = Modifier) {
-    TopAppBar(
-        title = { Text(text = "User") },
-        colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primary
-        ),
-        modifier = modifier,
-        navigationIcon = {  },
-        actions = {
-            Icon(
-                imageVector = Icons.Default.Search,
-                contentDescription = "Busqueda"
-            )
-        }
-    )
 }
 
 @Composable

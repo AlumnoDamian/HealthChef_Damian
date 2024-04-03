@@ -36,7 +36,7 @@ fun EditarView(
     id: Int,
     nombre: String?,
     descripcion: String?,
-    ingredientes: List<String>?,
+    ingredientes: String?,
     instrucciones: String?,
     tiempoDePreparacion: String?,
     calorias: String?,
@@ -48,7 +48,7 @@ fun EditarView(
             CenterAlignedTopAppBar(
                 title = {
                     Text(
-                        "Editar Stock",
+                        "Editar receta",
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -86,7 +86,7 @@ fun ContentEditarView(
     id: Int,
     nombre: String?,
     descripcion: String?,
-    ingredientes: List<String>?,
+    ingredientes: String?,
     instrucciones: String?,
     tiempoDePreparacion: String?,
     calorias: String?,
@@ -130,7 +130,7 @@ fun ContentEditarView(
                     .padding(bottom = 15.dp)
             )
             OutlinedTextField(
-                value = ingredientesText ?: ingredientes?.joinToString(", ") ?: "",
+                value = ingredientesText,
                 onValueChange = { ingredientesText  = it},
                 label = { Text(text = "Ingredientes") },
                 modifier = Modifier

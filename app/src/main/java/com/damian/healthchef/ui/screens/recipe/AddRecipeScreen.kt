@@ -36,7 +36,7 @@ fun AddRecipeScreen(navController: NavController, recipeViewModel: RecipeViewMod
             CenterAlignedTopAppBar(
                 title = {
                     Text(
-                        "Agregar Stock",
+                        "Añadir receta",
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -149,11 +149,12 @@ fun ContentAgregarView(it: PaddingValues, navController: NavController, recipeVi
 
             Button(onClick = {
                 val listaIngredientes = ingredientes.split(",").map { it.trim() }
+                val ingredientesString = listaIngredientes.joinToString(", ")
 
                 val insertRecipe = Recipe(
                     nombre = nombre,
                     descripcion = descripcion,
-                    ingredientes = listaIngredientes,
+                    ingredientes = ingredientesString,
                     instrucciones = instrucciones,
                     tiempoDePreparacion = tiempoDePreparacion,
                     calorias = calorias,

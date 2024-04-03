@@ -62,6 +62,7 @@ fun HealthChefAppNavigation(
             )
         ) {
             val ingredientes = it.arguments?.getString("ingredientes")?.split(",") ?: emptyList()
+            val ingredientesString = ingredientes.joinToString(separator = ", ")
 
             RecipeDetailsScreen(
                 navController = navController,
@@ -70,7 +71,7 @@ fun HealthChefAppNavigation(
                     id = it.arguments?.getInt("id") ?: -1,
                     nombre = it.arguments?.getString("nombre") ?: "",
                     descripcion = it.arguments?.getString("descripcion") ?: "",
-                    ingredientes = ingredientes,
+                    ingredientes = ingredientesString,
                     instrucciones = it.arguments?.getString("instrucciones") ?: "",
                     tiempoDePreparacion = it.arguments?.getString("tiempoDePreparacion") ?: "",
                     calorias = it.arguments?.getString("calorias") ?: "",
@@ -96,7 +97,8 @@ fun HealthChefAppNavigation(
                     navArgument("proteinas"){ type = NavType.StringType}
                 )
         ) {
-            val ingredientes = it.arguments?.getString("ingredientes")?.split(",") ?: emptyList()
+            val ingredientesString = it.arguments?.getString("ingredientes") ?: ""
+            val ingredientes = ingredientesString.split(",") // Convierte la cadena a una lista
 
             EditarView(
                 navController,
@@ -104,7 +106,7 @@ fun HealthChefAppNavigation(
                 it.arguments!!.getInt("id"),
                 it.arguments?.getString("nombre"),
                 it.arguments?.getString("descripcion"),
-                ingredientes,
+                ingredientes.joinToString(", "),
                 it.arguments?.getString("instrucciones"),
                 it.arguments?.getString("tiempoDePreparacion"),
                 it.arguments?.getString("calorias"),
