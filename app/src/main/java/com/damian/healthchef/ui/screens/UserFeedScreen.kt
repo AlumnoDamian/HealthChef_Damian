@@ -15,25 +15,21 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -55,9 +51,11 @@ fun UserFeedScreen(
     recipeViewModel: RecipeViewModel,
     onLogOut: () -> Unit
 ) {
-    val firebaseAuth = FirebaseAuth.getInstance()
-    val currentUser = firebaseAuth.currentUser
-    val name = currentUser?.displayName ?: "Anonymous"
+    val currentUser by signInViewModel.currentUser.observeAsState()
+
+    LaunchedEffect(key1 = signInViewModel.currentUser.value) {
+        signInViewModel.loadUserData()
+    }
 
     val favoriteRecipes by recipeViewModel.listRecipe.collectAsState(initial = emptyList())
 
@@ -70,8 +68,15 @@ fun UserFeedScreen(
         ) {
             item {
                 CardUser(
-                    onLogOut = onLogOut,
-                    name = name
+                    name = currentUser ?: "Anonymous",
+                    onLogOut = onLogOut
+                )
+            }
+            item {
+                Text(
+                    text = "---------- Mis Favoritos ----------",
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.padding(top = 24.dp, bottom = 24.dp)
                 )
             }
             items(favoriteRecipes) { recipeItem ->

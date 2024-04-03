@@ -47,6 +47,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.damian.healthchef.data.model.Recipe
 import com.damian.healthchef.ui.navigation.BottomBarContent
+import com.damian.healthchef.ui.navigation.Screens
+import com.damian.healthchef.ui.navigation.SearchTopBar
+import com.damian.healthchef.utils.inicializarRecetas
 import com.damian.healthchef.viewmodel.recipe.RecipeViewModel
 import java.util.Locale.Category
 
@@ -58,20 +61,7 @@ fun RecipeScreen(
     val recipes by recipeViewModel.listRecipe.collectAsState(initial = emptyList())
 
     Scaffold(
-        topBar = { TopAppBarRecipe() },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { navController.navigate("agregar") },
-                containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                contentColor = MaterialTheme.colorScheme.onSecondary
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Agregar",
-                    tint = MaterialTheme.colorScheme.background
-                )
-            }
-        },
+        topBar = { SearchTopBar(navController = navController, recipeViewModel = recipeViewModel) },
         bottomBar = { BottomBarContent(navController = navController) }
     ) { innerPadding ->
         LazyColumn(modifier = Modifier.padding(innerPadding)) {

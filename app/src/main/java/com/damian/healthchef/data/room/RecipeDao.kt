@@ -27,6 +27,9 @@ interface RecipeDao {
 
     @Delete
     suspend fun deleteRecipe(recipe: Recipe)
+
+    @Query("SELECT * FROM recetas WHERE nombre LIKE '%' || :query || '%' OR descripcion LIKE '%' || :query || '%'")
+    fun searchRecipe(query: String): Flow<List<Recipe>>
     /* RECIPES */
 
 }

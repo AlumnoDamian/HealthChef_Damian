@@ -1,44 +1,26 @@
 {
   "project_info": {
-    "project_number": "695596609890",
-    "project_id": "healthchef-16c5e",
-    "storage_bucket": "healthchef-16c5e.appspot.com"
+    "project_number": "851441277459",
+    "project_id": "healthchefdamian",
+    "storage_bucket": "healthchefdamian.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:695596609890:android:beb3655efba310431ebc3b",
+        "mobilesdk_app_id": "1:851441277459:android:45a4c03747fffde94ebde6",
         "android_client_info": {
           "package_name": "com.damian.healthchef"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "695596609890-84oq0bfivolnuohg9da4ejl5e5rulo4h.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.damian.healthchef",
-            "certificate_hash": "7b2f38e7d71c7c1b08db3d1d9b15e31275f6459a"
-          }
-        },
-        {
-          "client_id": "695596609890-sfqa9ebag4moqn54rros07veu3mrbhpi.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBPkNxNQ2UQxpBC0ASf9jcX6dJhuH0mYcE"
+          "current_key": "AIzaSyD_LWAwqFvt3mAX0Ao2UijjHJpnA1dAf-8"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "695596609890-sfqa9ebag4moqn54rros07veu3mrbhpi.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

@@ -61,7 +61,7 @@ fun ButtonLoginRegister(
     Button(
         onClick = onClick,
         modifier = Modifier
-            .padding(5.dp)
+            .padding(4.dp)
             .background(color, shape = CircleShape)
             .width(300.dp),
         enabled = inputValido
@@ -69,7 +69,9 @@ fun ButtonLoginRegister(
         Text(
             text = textId,
             color = MaterialTheme.colorScheme.background,
-            modifier = Modifier.padding(5.dp)
+            modifier = Modifier.padding(4.dp),
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Bold
         )
     }
 }
@@ -99,106 +101,9 @@ fun ButtonLogOut(onLogOut: () -> Unit){
         Text(
             text = "Cerrar sesión",
             color = MaterialTheme.colorScheme.background,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Bold
         )
-    }
-}
-
-@Composable
-fun ButtonIcons(
-    initialValueFavorite: Int,
-    initialValueComment: Int,
-    initialValueSend: Int,
-    onFavoriteClick: () -> Unit,
-    onCommentClick: () -> Unit,
-    onSendClick: () -> Unit
-) {
-    var favoriteCount by remember { mutableStateOf(initialValueFavorite) }
-    var commentCount by remember { mutableStateOf(initialValueComment) }
-    var sendCount by remember { mutableStateOf(initialValueSend) }
-
-    Row(
-        modifier = Modifier.fillMaxWidth().padding(8.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        // Botones de la izquierda
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Start
-        ) {
-            ButtonWithSpace(
-                onClick = {
-                    if (favoriteCount > initialValueFavorite) {
-                        favoriteCount--
-                    } else {
-                        favoriteCount++
-                    }
-                    onFavoriteClick()
-                },
-                icon = Icons.Outlined.Favorite,
-                count = favoriteCount
-            )
-
-            Spacer(modifier = Modifier.width(8.dp))
-
-            ButtonWithSpace(
-                onClick = {
-                    if (commentCount > initialValueComment) {
-                        commentCount--
-                    } else {
-                        commentCount++
-                    }
-                    onCommentClick()
-                },
-                icon = Icons.Outlined.ChatBubble,
-                count = commentCount
-            )
-        }
-
-        // Botón de la derecha
-        ButtonWithSpace(
-            onClick = {
-                if (sendCount > initialValueSend) {
-                    sendCount--
-                } else {
-                    sendCount++
-                }
-                onSendClick()
-            },
-            icon = Icons.Filled.Send,
-            count = sendCount
-        )
-    }
-}
-
-@Composable
-fun ButtonWithSpace(
-    onClick: () -> Unit,
-    icon: ImageVector,
-    count: Int,
-) {
-    Box(
-        modifier = Modifier
-            .clip(RoundedCornerShape(20.dp))
-            .background(MaterialTheme.colorScheme.primary)
-            .clickable(onClick = onClick)
-            .padding(8.dp)
-    ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(
-                imageVector = icon,
-                contentDescription = null,
-                modifier = Modifier.size(24.dp)
-            )
-
-            Spacer(modifier = Modifier.width(4.dp))
-
-            Text(
-                text = "$count",
-                color = MaterialTheme.colorScheme.background,
-                fontSize = 18.sp,
-                modifier = Modifier.padding(start = 4.dp, end = 8.dp)
-            )
-        }
     }
 }
 
@@ -221,8 +126,8 @@ fun GoogleLoginButton(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(10.dp)
-            .clip(RoundedCornerShape(10.dp))
+            .padding(start = 36.dp, end = 36.dp)
+            .clip(RoundedCornerShape(24.dp))
             .clickable {
                 launcher.launch(googleSignInClient.signInIntent)
             }
@@ -233,9 +138,7 @@ fun GoogleLoginButton(
         Image(
             painter = painterResource(id = R.drawable.icon_google),
             contentDescription = "Login con Google",
-            modifier = Modifier
-                .padding(10.dp)
-                .size(40.dp)
+            modifier = Modifier.padding(10.dp).size(40.dp)
         )
         Text(
             text = "Login con Google",

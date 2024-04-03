@@ -44,6 +44,7 @@ class SignInViewModel: ViewModel() {
                     if (task.isSuccessful) {
                         Log.d("HealthChef", "Logueado con Google exitoso!!")
                         onLoginSucces()
+                        loadUserData()
                     }
                 }
                 .addOnFailureListener {
@@ -55,7 +56,7 @@ class SignInViewModel: ViewModel() {
 
     }
     fun signInWithEmailAndPassword(email: String, password: String, onLoginSucces: () -> Unit)
-            = viewModelScope.launch {
+    = viewModelScope.launch {
         try {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
@@ -69,5 +70,11 @@ class SignInViewModel: ViewModel() {
         } catch (ex: Exception) {
             Log.d("HealthChef", "Iniciar sesion: ${ex.message} ")
         }
+    }
+
+    fun signOut(onLogoutSuccess: () -> Unit) {
+        auth.signOut()
+        currentUser.value = null
+        onLogoutSuccess()
     }
 }

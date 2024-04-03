@@ -9,7 +9,6 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.damian.healthchef.data.model.Recipe
 import com.damian.healthchef.ui.screens.LoginScreen
-import com.damian.healthchef.ui.screens.PlanificationDateScreen
 import com.damian.healthchef.ui.screens.UserFeedScreen
 import com.damian.healthchef.ui.screens.recipe.AddRecipeScreen
 import com.damian.healthchef.ui.screens.recipe.EditarView
@@ -43,7 +42,7 @@ fun HealthChefAppNavigation(
             )
         }
 
-        composable("agregar"){
+        composable(route = Screens.BottomBarScreens.AddRecipe.route){
             AddRecipeScreen(navController, recipeViewModel)
         }
 
@@ -115,18 +114,16 @@ fun HealthChefAppNavigation(
             )
         }
 
-        composable(route = Screens.BottomBarScreens.PlanificationDate.route){
-            PlanificationDateScreen(
-                navController = navController
-            )
-        }
-
         composable(route = Screens.BottomBarScreens.Perfil.route){
             UserFeedScreen(
                 navController = navController,
                 signInViewModel = signInViewModel,
                 recipeViewModel = recipeViewModel,
-                onLogOut = { navController.navigate(Screens.BottomBarScreens.Login.route)}
+                onLogOut = {
+                    signInViewModel.signOut {
+                        navController.navigate(Screens.BottomBarScreens.Login.route)
+                    }
+                }
             )
         }
     }

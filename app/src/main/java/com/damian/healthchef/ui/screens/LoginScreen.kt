@@ -62,7 +62,6 @@ fun LoginScreen(
         }
     }
 
-
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
@@ -92,8 +91,8 @@ fun LoginScreen(
             } else {
                 RegisterSection(
                     viewModel = registerViewModel,
-                    onRegisterSuccess = { username, email, password ->
-                        registerViewModel.createUserWithEmailAndPassword(username, email, password) {
+                    onRegisterSuccess = { email, password ->
+                        registerViewModel.createUserWithEmailAndPassword(email, password) {
                             navController.navigate(Screens.BottomBarScreens.Login.route)
                         }
                     },

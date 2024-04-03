@@ -22,39 +22,26 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.damian.healthchef.data.model.Recipe
+import com.damian.healthchef.ui.components.inputs.AddRecipeInputField
+import com.damian.healthchef.ui.navigation.BottomBarContent
 import com.damian.healthchef.viewmodel.recipe.RecipeViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddRecipeScreen(navController: NavController, recipeViewModel: RecipeViewModel){
     Scaffold(
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(
-                        "Añadir receta",
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back")
-                    }
-                }
-            )
-        }
+        bottomBar = { BottomBarContent(navController = navController) }
     ) {
-        ContentAgregarView( it , navController, recipeViewModel)
+        AddRecipeContent( it , navController, recipeViewModel)
     }
 }
 
 @Composable
-fun ContentAgregarView(it: PaddingValues, navController: NavController, recipeViewModel: RecipeViewModel){
+fun AddRecipeContent(it: PaddingValues, navController: NavController, recipeViewModel: RecipeViewModel){
     var nombre by remember { mutableStateOf("") }
     var descripcion by remember { mutableStateOf("") }
     var ingredientes by remember { mutableStateOf("") }
@@ -72,80 +59,54 @@ fun ContentAgregarView(it: PaddingValues, navController: NavController, recipeVi
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         item{
-            OutlinedTextField(
+            AddRecipeInputField(
                 value = nombre,
-                onValueChange = { nombre = it},
-                label = { Text(text = "Nombre") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
-                    .padding(bottom = 15.dp)
+                onValueChange = { nombre = it },
+                label = "Nombre",
+                keyboardType = KeyboardType.Text
             )
-
-            OutlinedTextField(
+            AddRecipeInputField(
                 value = descripcion,
-                onValueChange = { descripcion = it},
-                label = { Text(text = "Descripcion") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
-                    .padding(bottom = 15.dp)
+                onValueChange = { descripcion = it },
+                label = "Descripcion",
+                keyboardType = KeyboardType.Text
             )
-            OutlinedTextField(
+            AddRecipeInputField(
                 value = ingredientes,
-                onValueChange = { ingredientes = it},
-                label = { Text(text = "Ingredientes") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
-                    .padding(bottom = 15.dp)
+                onValueChange = { ingredientes = it },
+                label = "Ingredientes",
+                keyboardType = KeyboardType.Text
             )
-            OutlinedTextField(
+            AddRecipeInputField(
                 value = instrucciones,
-                onValueChange = { instrucciones = it},
-                label = { Text(text = "Instrucciones") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
-                    .padding(bottom = 15.dp)
+                onValueChange = { instrucciones = it },
+                label = "Instrucciones",
+                keyboardType = KeyboardType.Text
             )
-            OutlinedTextField(
+            AddRecipeInputField(
                 value = tiempoDePreparacion,
-                onValueChange = { tiempoDePreparacion = it},
-                label = { Text(text = "Tiempo de preparación") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
-                    .padding(bottom = 15.dp)
+                onValueChange = { tiempoDePreparacion = it },
+                label = "Tiempo de preparación",
+                keyboardType = KeyboardType.Number
             )
-            OutlinedTextField(
+            AddRecipeInputField(
                 value = calorias,
-                onValueChange = { calorias = it},
-                label = { Text(text = "Calorias") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
-                    .padding(bottom = 15.dp)
+                onValueChange = { calorias = it },
+                label = "Calorias",
+                keyboardType = KeyboardType.Number
             )
-            OutlinedTextField(
+            AddRecipeInputField(
                 value = grasas,
-                onValueChange = { grasas = it},
-                label = { Text(text = "Grasas") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
-                    .padding(bottom = 15.dp)
+                onValueChange = { grasas = it },
+                label = "Grasas",
+                keyboardType = KeyboardType.Number
             )
-            OutlinedTextField(
+            AddRecipeInputField(
                 value = proteinas,
-                onValueChange = { proteinas = it},
-                label = { Text(text = "Proteinas") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
-                    .padding(bottom = 15.dp)
+                onValueChange = { proteinas = it },
+                label = "Proteinas",
+                keyboardType = KeyboardType.Number
             )
-
 
             Button(onClick = {
                 val listaIngredientes = ingredientes.split(",").map { it.trim() }

@@ -206,7 +206,7 @@ fun RecipeDetails(
                             append("Tiempo de preparacion: ")
                         }
                         withStyle(style = SpanStyle(fontSize = 18.sp)) {
-                            append("${recipe.tiempoDePreparacion} m/h")
+                            append(recipe.tiempoDePreparacion)
                         }
                     },
                     color = MaterialTheme.colorScheme.onSurface,

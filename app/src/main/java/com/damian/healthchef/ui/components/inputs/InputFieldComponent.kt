@@ -1,4 +1,4 @@
-package com.damian.healthchef.ui.components
+package com.damian.healthchef.ui.components.inputs
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -63,65 +63,5 @@ fun InputField(
             focusedTextColor = MaterialTheme.colorScheme.secondary,
             unfocusedTextColor = MaterialTheme.colorScheme.primary
         )
-    )
-}
-
-
-@Composable
-fun UsernameInput(
-    usernameState: MutableState<String>,
-    labelId: String = "Nombre de usuario"
-) {
-    InputField(
-        valueState = usernameState,
-        labelId = labelId,
-        keyboardType = KeyboardType.Text,
-        isSingleLine = true
-    )
-}
-
-@Composable
-fun EmailInput(
-    emailState: MutableState<String>,
-    labelId: String = "Email"
-) {
-    InputField(
-        valueState = emailState,
-        labelId = labelId,
-        keyboardType = KeyboardType.Email
-    )
-}
-
-@Composable
-fun PasswordInput(
-    passwordState: MutableState<String>,
-    labelId: String = "Contraseña",
-    passwordVisible: Boolean,
-    onToggleClick: () -> Unit
-) {
-    InputField(
-        valueState = passwordState,
-        labelId = labelId,
-        keyboardType = KeyboardType.Password,
-        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-        trailingIcon = Icons.Outlined.Visibility,
-        onIconClick = onToggleClick
-    )
-}
-
-@Composable
-fun RepeatPasswordInput(
-    passwordState: MutableState<String>,
-    labelId: String = "Repetir contraseña",
-    passwordVisible: Boolean,
-    onToggleClick: () -> Unit
-) {
-    InputField(
-        valueState = passwordState,
-        labelId = labelId,
-        keyboardType = KeyboardType.Password,
-        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-        trailingIcon = Icons.Outlined.Visibility,
-        onIconClick = onToggleClick
     )
 }

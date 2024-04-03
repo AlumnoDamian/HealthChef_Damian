@@ -45,4 +45,7 @@ class RecipeViewModel (private val dao: RecipeDao): ViewModel(){
     fun deleteRecipe(recipe: Recipe) = viewModelScope.launch {
         dao.deleteRecipe(recipe = recipe)
     }
+    fun searchRecipe(query: String): Flow<List<Recipe>> {
+        return dao.searchRecipe(query)
+    }
 }

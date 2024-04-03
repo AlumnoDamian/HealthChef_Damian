@@ -21,7 +21,7 @@ fun BottomBarContent(
 ) {
     val screens: List<Screens.BottomBarScreens> = listOf(
         Screens.BottomBarScreens.Recipe,
-        Screens.BottomBarScreens.PlanificationDate,
+        Screens.BottomBarScreens.AddRecipe,
         Screens.BottomBarScreens.Perfil
     )
 

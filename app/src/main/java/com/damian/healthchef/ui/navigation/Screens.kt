@@ -1,8 +1,10 @@
 package com.damian.healthchef.ui.navigation
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.AddCircle
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.material.icons.rounded.ShoppingCart
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -15,16 +17,6 @@ sealed class Screens(
     val route: String,
     val arguments: List<NamedNavArgument>? = null
 ){
-
-    object RecipeDetailsScreen : Screens(
-        route = "recipe/details",
-        arguments = listOf(
-            navArgument("recipeId") {
-                type = NavType.IntType
-            }
-        )
-    )
-
 
     sealed class BottomBarScreens(
         route: String,
@@ -41,10 +33,10 @@ sealed class Screens(
             title = "Recetas",
         )
 
-        object PlanificationDate : BottomBarScreens(
-            route = "planificationDate",
-            title = "Planificación",
-            icon = Icons.Outlined.CalendarMonth
+        object AddRecipe : BottomBarScreens(
+            route = "addrecipe",
+            title = "Añadir",
+            icon = Icons.Outlined.AddCircle
         )
 
         object Perfil : BottomBarScreens(

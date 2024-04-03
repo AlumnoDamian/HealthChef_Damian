@@ -23,6 +23,9 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
+import com.damian.healthchef.ui.components.inputs.EmailInput
+import com.damian.healthchef.ui.components.inputs.PasswordInput
+import com.damian.healthchef.ui.components.inputs.RepeatPasswordInput
 import com.damian.healthchef.viewmodel.login.RegisterViewModel
 import com.damian.healthchef.viewmodel.login.SignInViewModel
 
@@ -82,7 +85,7 @@ fun SignInSection(
 @Composable
 fun RegisterSection(
     viewModel: RegisterViewModel,
-    onRegisterSuccess: (String, String, String) -> Unit = { username, email, password -> },
+    onRegisterSuccess: (String, String) -> Unit = {email, password -> },
     onContinueLogin: () -> Unit,
     onError: (String) -> Unit = {}
 ) {
@@ -110,7 +113,6 @@ fun RegisterSection(
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         /*Inputs Register*/
-        UsernameInput(usernameState = username)
         EmailInput(emailState = email)
         PasswordInput(
             passwordState = password,
@@ -148,7 +150,7 @@ fun RegisterSection(
             inputValido = valido
         ) {
             if (password.value.trim() == repeatPassword.value.trim()) {
-                onRegisterSuccess(username.value.trim(), email.value.trim(), password.value.trim())
+                onRegisterSuccess(email.value.trim(), password.value.trim())
                 keyboardController?.hide()
             } else {
                 onError("Las contraseñas no coinciden")
