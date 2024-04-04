@@ -2,17 +2,9 @@ package com.damian.healthchef.ui.screens.recipe
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,12 +15,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.damian.healthchef.data.model.Recipe
 import com.damian.healthchef.ui.components.inputs.AddRecipeInputField
 import com.damian.healthchef.ui.navigation.BottomBarContent
+import com.damian.healthchef.ui.navigation.Screens
 import com.damian.healthchef.viewmodel.recipe.RecipeViewModel
 
 @Composable
@@ -36,7 +28,7 @@ fun AddRecipeScreen(navController: NavController, recipeViewModel: RecipeViewMod
     Scaffold(
         bottomBar = { BottomBarContent(navController = navController) }
     ) {
-        AddRecipeContent( it , navController, recipeViewModel)
+        AddRecipeContent(it, navController, recipeViewModel)
     }
 }
 
@@ -50,6 +42,17 @@ fun AddRecipeContent(it: PaddingValues, navController: NavController, recipeView
     var calorias by remember { mutableStateOf("") }
     var grasas by remember { mutableStateOf("") }
     var proteinas by remember { mutableStateOf("") }
+    
+    val valido = remember(nombre, descripcion, ingredientes, instrucciones, tiempoDePreparacion, calorias, grasas, proteinas) {
+        nombre.trim().isNotEmpty() &&
+        descripcion.trim().isNotEmpty() &&
+        ingredientes.trim().isNotEmpty() &&
+        instrucciones.trim().isNotEmpty() &&
+        tiempoDePreparacion.trim().isNotEmpty() &&
+        calorias.trim().isNotEmpty() &&
+        grasas.trim().isNotEmpty() &&
+        proteinas.trim().isNotEmpty()
+    }
 
     LazyColumn (
         modifier = Modifier
@@ -87,47 +90,51 @@ fun AddRecipeContent(it: PaddingValues, navController: NavController, recipeView
                 value = tiempoDePreparacion,
                 onValueChange = { tiempoDePreparacion = it },
                 label = "Tiempo de preparación",
-                keyboardType = KeyboardType.Number
+                keyboardType = KeyboardType.Text
             )
             AddRecipeInputField(
                 value = calorias,
                 onValueChange = { calorias = it },
                 label = "Calorias",
-                keyboardType = KeyboardType.Number
+                keyboardType = KeyboardType.Text
             )
             AddRecipeInputField(
                 value = grasas,
                 onValueChange = { grasas = it },
                 label = "Grasas",
-                keyboardType = KeyboardType.Number
+                keyboardType = KeyboardType.Text
             )
             AddRecipeInputField(
                 value = proteinas,
                 onValueChange = { proteinas = it },
                 label = "Proteinas",
-                keyboardType = KeyboardType.Number
+                keyboardType = KeyboardType.Text
             )
+            Button(
+                onClick = {
+                    val listaIngredientes = ingredientes.split(",").map { it.trim() }
+                    val ingredientesString = listaIngredientes.joinToString(", ")
 
-            Button(onClick = {
-                val listaIngredientes = ingredientes.split(",").map { it.trim() }
-                val ingredientesString = listaIngredientes.joinToString(", ")
+                    val listaInstrucciones = instrucciones.split(",").map { it.trim() }
+                    val instruccionesString = listaInstrucciones.joinToString(", ")
 
-                val insertRecipe = Recipe(
-                    nombre = nombre,
-                    descripcion = descripcion,
-                    ingredientes = ingredientesString,
-                    instrucciones = instrucciones,
-                    tiempoDePreparacion = tiempoDePreparacion,
-                    calorias = calorias,
-                    grasas = grasas,
-                    proteinas = proteinas
-                )
-                recipeViewModel.insertRecipe(insertRecipe)
-                navController.popBackStack()
-            }) {
+                    val insertRecipe = Recipe(
+                        nombre = nombre,
+                        descripcion = descripcion,
+                        ingredientes = ingredientesString,
+                        instrucciones = instruccionesString,
+                        tiempoDePreparacion = tiempoDePreparacion,
+                        calorias = calorias,
+                        grasas = grasas,
+                        proteinas = proteinas
+                    )
+                    recipeViewModel.insertRecipe(insertRecipe)
+                    navController.navigate(Screens.BottomBarScreens.Recipe.route)
+                },
+                enabled = valido
+            ) {
                 Text(text = "Agregar")
             }
         }
     }
-
 }

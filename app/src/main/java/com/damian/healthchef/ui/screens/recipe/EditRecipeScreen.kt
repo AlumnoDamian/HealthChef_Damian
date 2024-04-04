@@ -2,7 +2,6 @@ package com.damian.healthchef.ui.screens.recipe
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
@@ -12,7 +11,6 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,15 +20,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.damian.healthchef.data.model.Recipe
+import com.damian.healthchef.ui.components.inputs.EditRecipeInputField
 import com.damian.healthchef.viewmodel.recipe.RecipeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditarView(
+fun EditRecipeScreen(
     navController: NavController,
     recipeViewModel: RecipeViewModel,
     id: Int,
@@ -61,7 +61,7 @@ fun EditarView(
             )
         }
     ) {
-        ContentEditarView(
+        EditRecipeContent(
             it,
             navController,
             recipeViewModel,
@@ -79,7 +79,7 @@ fun EditarView(
 }
 
 @Composable
-fun ContentEditarView(
+fun EditRecipeContent(
     it: PaddingValues,
     navController: NavController,
     recipeViewModel: RecipeViewModel,
@@ -93,14 +93,25 @@ fun ContentEditarView(
     grasas: String?,
     proteinas: String?
 ){
-    var nombre by remember { mutableStateOf("") }
-    var descripcion by remember { mutableStateOf("") }
-    var ingredientesText by remember { mutableStateOf("") }
-    var instrucciones by remember { mutableStateOf("") }
-    var tiempoDePreparacion by remember { mutableStateOf("") }
-    var calorias by remember { mutableStateOf("") }
-    var grasas by remember { mutableStateOf("") }
-    var proteinas by remember { mutableStateOf("") }
+    var nombre by remember { mutableStateOf(nombre ?: "") }
+    var descripcion by remember { mutableStateOf(descripcion ?: "") }
+    var ingredientesText by remember { mutableStateOf(ingredientes ?: "") }
+    var instruccionesText by remember { mutableStateOf(instrucciones ?: "") }
+    var tiempoDePreparacion by remember { mutableStateOf(tiempoDePreparacion ?: "") }
+    var calorias by remember { mutableStateOf(calorias ?: "") }
+    var grasas by remember { mutableStateOf(grasas ?: "") }
+    var proteinas by remember { mutableStateOf(proteinas ?: "") }
+
+    val valido = remember(nombre, descripcion, ingredientesText, instruccionesText, tiempoDePreparacion, calorias, grasas, proteinas) {
+        nombre.trim().isNotEmpty() &&
+        descripcion.trim().isNotEmpty() &&
+        ingredientesText.trim().isNotEmpty() &&
+        instruccionesText.trim().isNotEmpty() &&
+        tiempoDePreparacion.trim().isNotEmpty() &&
+        calorias.trim().isNotEmpty() &&
+        grasas.trim().isNotEmpty() &&
+        proteinas.trim().isNotEmpty()
+    }
 
     LazyColumn (
         modifier = Modifier
@@ -109,97 +120,82 @@ fun ContentEditarView(
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
         item{
-            OutlinedTextField(
-                value = nombre ?: "",
-                onValueChange = { nombre = it},
-                label = { Text(text = "Nombre") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
-                    .padding(bottom = 15.dp)
+            EditRecipeInputField(
+                value = nombre ?: "Ejemplo: Ensalada César",
+                onValueChange = { nombre = it },
+                label = "Nombre",
+                keyboardType = KeyboardType.Text
+            )
+            EditRecipeInputField(
+                value = descripcion ?: "Ejemplo: Deliciosa ensalada César",
+                onValueChange = { descripcion = it },
+                label = "Descripcion",
+                keyboardType = KeyboardType.Text
+            )
+            EditRecipeInputField(
+                value = ingredientesText ?: "Ejemplo: 200g de lechuga, 150g de pollo, 50g de crutones, aderezo al gusto",
+                onValueChange = { ingredientesText = it },
+                label = "Ingredientes",
+                keyboardType = KeyboardType.Text
+            )
+            EditRecipeInputField(
+                value = instruccionesText ?: "Ejemplo: Mezcla todos los ingredientes y sirve",
+                onValueChange = { proteinas = it },
+                label = "Instrucciones",
+                keyboardType = KeyboardType.Text
+            )
+            EditRecipeInputField(
+                value = tiempoDePreparacion ?: "Ejemplo: 15 minutos",
+                onValueChange = { tiempoDePreparacion = it },
+                label = "Tiempo de preparación",
+                keyboardType = KeyboardType.Text
+            )
+            EditRecipeInputField(
+                value = calorias ?: "Ejemplo: 300",
+                onValueChange = { calorias = it },
+                label = "Caloría",
+                keyboardType = KeyboardType.Text
+            )
+            EditRecipeInputField(
+                value = grasas ?: "Ejemplo: 10g",
+                onValueChange = { grasas = it },
+                label = "Grasas",
+                keyboardType = KeyboardType.Text
+            )
+            EditRecipeInputField(
+                value = proteinas ?: "Ejemplo: 20g",
+                onValueChange = { proteinas = it },
+                label = "Proteinas",
+                keyboardType = KeyboardType.Text
             )
 
-            OutlinedTextField(
-                value = descripcion ?: "",
-                onValueChange = { descripcion = it},
-                label = { Text(text = "Descripcion") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
-                    .padding(bottom = 15.dp)
-            )
-            OutlinedTextField(
-                value = ingredientesText,
-                onValueChange = { ingredientesText  = it},
-                label = { Text(text = "Ingredientes") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
-                    .padding(bottom = 15.dp)
-            )
-            OutlinedTextField(
-                value = instrucciones ?: "",
-                onValueChange = { instrucciones = it},
-                label = { Text(text = "Instrucciones") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
-                    .padding(bottom = 15.dp)
-            )
-            OutlinedTextField(
-                value = tiempoDePreparacion ?: "",
-                onValueChange = { tiempoDePreparacion = it},
-                label = { Text(text = "Tiempo de preparación") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
-                    .padding(bottom = 15.dp)
-            )
-            OutlinedTextField(
-                value = calorias ?: "",
-                onValueChange = { calorias = it},
-                label = { Text(text = "Calorias") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
-                    .padding(bottom = 15.dp)
-            )
-            OutlinedTextField(
-                value = grasas ?: "",
-                onValueChange = { grasas = it},
-                label = { Text(text = "Grasas") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
-                    .padding(bottom = 15.dp)
-            )
-            OutlinedTextField(
-                value = proteinas ?: "",
-                onValueChange = { proteinas = it},
-                label = { Text(text = "Proteinas") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
-                    .padding(bottom = 15.dp)
-            )
+            Button(
+                onClick = {
+                    val listaIngredientes = ingredientes?.split(",")?.map { it.trim() }
+                    val ingredientesString = listaIngredientes?.joinToString(", ")
 
-            Button(onClick = {
-                val updateRecipe = Recipe(
-                    id = id,
-                    nombre = nombre!!,
-                    descripcion = descripcion!!,
-                    ingredientes = ingredientes!!,
-                    instrucciones = instrucciones!!,
-                    tiempoDePreparacion = tiempoDePreparacion!!,
-                    calorias = calorias!!,
-                    grasas = grasas!!,
-                    proteinas = proteinas!!
-                )
+                    val listaInstrucciones = instrucciones?.split(",")?.map { it.trim() }
+                    val instruccionesString = listaInstrucciones?.joinToString(", ")
 
-                recipeViewModel.updateRecipe(updateRecipe)
-                navController.popBackStack()
-            }) {
+                    val updateRecipe = Recipe(
+                        id = id,
+                        nombre = nombre!!,
+                        descripcion = descripcion!!,
+                        ingredientes = ingredientesString!!,
+                        instrucciones = instruccionesString!!,
+                        tiempoDePreparacion = tiempoDePreparacion!!,
+                        calorias = calorias!!,
+                        grasas = grasas!!,
+                        proteinas = proteinas!!
+                    )
+
+                    recipeViewModel.updateRecipe(updateRecipe)
+                    navController.popBackStack()
+                },
+                enabled = valido
+            ) {
                 Text(text = "Editar")
             }
         }

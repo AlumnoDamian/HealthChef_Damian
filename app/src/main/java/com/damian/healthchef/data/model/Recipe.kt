@@ -1,5 +1,6 @@
 package com.damian.healthchef.data.model
 
+import android.net.Uri
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey

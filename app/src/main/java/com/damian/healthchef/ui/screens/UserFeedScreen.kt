@@ -30,7 +30,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -42,7 +41,6 @@ import com.damian.healthchef.ui.components.ButtonLogOut
 import com.damian.healthchef.ui.navigation.BottomBarContent
 import com.damian.healthchef.viewmodel.login.SignInViewModel
 import com.damian.healthchef.viewmodel.recipe.RecipeViewModel
-import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun UserFeedScreen(

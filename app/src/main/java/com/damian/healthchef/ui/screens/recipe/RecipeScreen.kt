@@ -21,6 +21,8 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -38,12 +40,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.damian.healthchef.data.model.Recipe
 import com.damian.healthchef.ui.navigation.BottomBarContent
@@ -69,6 +76,10 @@ fun RecipeScreen(
                 item {
                     RecipeItem(
                         recipe = recipeItem,
+                        isFavorite = recipeItem.isFavorite,
+                        onFavoriteRecipeClick = {
+                            recipeViewModel.toggleFavorite(recipeItem)
+                        },
                         onRecipeDetailsClick = {
                             navController.navigate(
                                 "detallesReceta/${recipeItem.id}/${recipeItem.nombre}/${recipeItem.descripcion}/${recipeItem.ingredientes}/${recipeItem.instrucciones}/${recipeItem.tiempoDePreparacion}/${recipeItem.calorias}/${recipeItem.grasas}/${recipeItem.proteinas}"
@@ -88,26 +99,18 @@ fun RecipeScreen(
     }
 }
 
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TopAppBarRecipe(modifier: Modifier = Modifier) {
-    TopAppBar(
-        title = { Text(text = "Recipe") },
-        colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primary
-        ),
-        modifier = modifier
-    )
-}
-
 @Composable
 fun RecipeItem(
     recipe: Recipe,
+    isFavorite: Boolean,
+    onFavoriteRecipeClick: () -> Unit,
     onRecipeDetailsClick: () -> Unit,
     onEditRecipeClick: () -> Unit,
     onClickDeleteRecipe: () -> Unit
 ) {
+
+    var isRecipeFavorite by rememberSaveable { mutableStateOf(isFavorite) }
+
     Card(
         Modifier
             .padding(16.dp)
@@ -128,9 +131,9 @@ fun RecipeItem(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Nombre: ${recipe.nombre}",
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
+                        text = recipe.nombre,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(5.dp)
                     )
                 }
@@ -141,6 +144,15 @@ fun RecipeItem(
                     horizontalArrangement = Arrangement.End,
                     modifier = Modifier.fillMaxWidth()
                 ) {
+                    IconButton(onClick = {
+                        isRecipeFavorite = !isRecipeFavorite
+                        onFavoriteRecipeClick()
+                    } ) {
+                        Icon(
+                            imageVector = if (isRecipeFavorite) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder,
+                            contentDescription = "Favorito"
+                        )
+                    }
                     IconButton(onClick = onEditRecipeClick) {
                         Icon(imageVector = Icons.Default.Edit, contentDescription = "Editar")
                     }

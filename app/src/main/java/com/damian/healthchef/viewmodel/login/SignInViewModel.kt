@@ -36,6 +36,7 @@ class SignInViewModel: ViewModel() {
             }
         }
     }
+
     fun signInWithGoogleCredential(credential: AuthCredential, onLoginSucces: () -> Unit)
             = viewModelScope.launch {
         try {
@@ -62,6 +63,7 @@ class SignInViewModel: ViewModel() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Log.d("HealthChef", "Iniciar sesion: BIEN!")
+                        loadUserData()
                         onLoginSucces()
                     } else {
                         Log.d("HealthChef", "Iniciar sesion: ${task.result.toString()} ")

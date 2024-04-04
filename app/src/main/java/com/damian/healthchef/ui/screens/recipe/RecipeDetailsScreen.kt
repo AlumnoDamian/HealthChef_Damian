@@ -74,9 +74,13 @@ fun RecipeDetailsScreen(
             CenterAlignedTopAppBar(
                 title = {
                     Text(
-                        "Ver detalles",
+                        text = "Detalles",
                         maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+                        overflow = TextOverflow.Ellipsis,
+                        style = MaterialTheme.typography.titleLarge,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(8.dp)
                     )
                 },
                 navigationIcon = {
@@ -100,7 +104,6 @@ fun RecipeDetailsScreen(
         }
     }
 }
-
 
 @Composable
 fun RecipeDetails(
@@ -135,17 +138,14 @@ fun RecipeDetails(
 
                 Text(
                     text = recipe.nombre,
-                    style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier
-                        .padding(5.dp)
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(8.dp)
                         .align(Alignment.CenterHorizontally)
                 )
 
                 Text(
                     text = "Descripcion",
-                    style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(8.dp)
@@ -183,17 +183,21 @@ fun RecipeDetails(
                 )
 
                 Text(
-                    text = "Intrucciones: ${recipe.instrucciones}",
-                    style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    text = "Intrucciones",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(8.dp)
                 )
                 Text(
                     text = buildAnnotatedString {
-                        withStyle(style = SpanStyle(fontSize = 18.sp)) {
-                            append(recipe.descripcion)
+                        recipe.instrucciones.split(",").forEachIndexed { index, instrucciones ->
+                            withStyle(style = SpanStyle(fontSize = 18.sp)) {
+                                append("• ")
+                                append(instrucciones.trim())
+                                if (index != recipe.instrucciones.split(",").size - 1) {
+                                    appendLine()
+                                }
+                            }
                         }
                     },
                     color = MaterialTheme.colorScheme.onSurface,
@@ -251,24 +255,6 @@ fun RecipeDetails(
                     color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.padding(8.dp)
                 )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Row(
-                    horizontalArrangement = Arrangement.End,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    IconButton(onClick = {
-                        isRecipeFavorite = !isRecipeFavorite
-                        onFavoriteRecipeClick()
-                    } ) {
-                        Icon(
-                            imageVector = if (isRecipeFavorite) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder,
-                            contentDescription = "Favorito"
-                        )
-                    }
-                }
             }
         }
-    
 }

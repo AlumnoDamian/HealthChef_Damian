@@ -23,7 +23,10 @@ sealed class Screens(
         val title: String,
         val icon: ImageVector? = null
     ) : Screens(route) {
-
+        object Splash : BottomBarScreens(
+            route = "splash",
+            title = "Splash"
+        )
         object Login : BottomBarScreens(
             route = "login",
             title = "Login"
@@ -32,7 +35,6 @@ sealed class Screens(
             route = "recipe",
             title = "Recetas",
         )
-
         object AddRecipe : BottomBarScreens(
             route = "addrecipe",
             title = "Añadir",

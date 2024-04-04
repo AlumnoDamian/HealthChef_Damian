@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.damian.healthchef.R
 import com.damian.healthchef.ui.navigation.Screens
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.delay
 
 @ExperimentalFoundationApi
@@ -43,7 +44,12 @@ fun SplashScreen(navController: NavController) {
     LaunchedEffect(key1 = true) {
         delay(2500L)
         navController.popBackStack()
-        navController.navigate(Screens.BottomBarScreens.Login.route)
+        // navController.navigate(Screens.BottomBarScreens.Login.route)
+        if (FirebaseAuth.getInstance().currentUser?.email.isNullOrEmpty()){
+            navController.navigate(Screens.BottomBarScreens.Login.route)
+        } else {
+            navController.navigate(Screens.BottomBarScreens.Recipe.route)
+        }
     }
 
     Box(

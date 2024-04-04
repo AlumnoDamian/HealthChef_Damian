@@ -1,5 +1,8 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.damian.healthchef.ui.navigation
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -9,9 +12,10 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.damian.healthchef.data.model.Recipe
 import com.damian.healthchef.ui.screens.LoginScreen
+import com.damian.healthchef.ui.screens.SplashScreen
 import com.damian.healthchef.ui.screens.UserFeedScreen
 import com.damian.healthchef.ui.screens.recipe.AddRecipeScreen
-import com.damian.healthchef.ui.screens.recipe.EditarView
+import com.damian.healthchef.ui.screens.recipe.EditRecipeScreen
 import com.damian.healthchef.ui.screens.recipe.RecipeDetailsScreen
 import com.damian.healthchef.ui.screens.recipe.RecipeScreen
 import com.damian.healthchef.viewmodel.login.SignInViewModel
@@ -24,11 +28,15 @@ fun HealthChefAppNavigation(
     signInViewModel: SignInViewModel
 ) {
 
-
     NavHost(
         navController = navController,
-        startDestination = Screens.BottomBarScreens.Login.route,
+        startDestination = Screens.BottomBarScreens.Splash.route,
     ) {
+        composable(route = Screens.BottomBarScreens.Splash.route) {
+            SplashScreen(
+                navController
+            )
+        }
         composable(route = Screens.BottomBarScreens.Login.route) {
             LoginScreen(
                 navController
@@ -63,6 +71,9 @@ fun HealthChefAppNavigation(
             val ingredientes = it.arguments?.getString("ingredientes")?.split(",") ?: emptyList()
             val ingredientesString = ingredientes.joinToString(separator = ", ")
 
+            val instrucciones = it.arguments?.getString("instrucciones")?.split(",") ?: emptyList()
+            val instruccionesString = instrucciones.joinToString(separator = ", ")
+
             RecipeDetailsScreen(
                 navController = navController,
                 recipeViewModel = recipeViewModel,
@@ -71,7 +82,7 @@ fun HealthChefAppNavigation(
                     nombre = it.arguments?.getString("nombre") ?: "",
                     descripcion = it.arguments?.getString("descripcion") ?: "",
                     ingredientes = ingredientesString,
-                    instrucciones = it.arguments?.getString("instrucciones") ?: "",
+                    instrucciones = instruccionesString,
                     tiempoDePreparacion = it.arguments?.getString("tiempoDePreparacion") ?: "",
                     calorias = it.arguments?.getString("calorias") ?: "",
                     grasas = it.arguments?.getString("grasas") ?: "",
@@ -99,7 +110,7 @@ fun HealthChefAppNavigation(
             val ingredientesString = it.arguments?.getString("ingredientes") ?: ""
             val ingredientes = ingredientesString.split(",") // Convierte la cadena a una lista
 
-            EditarView(
+            EditRecipeScreen(
                 navController,
                 recipeViewModel,
                 it.arguments!!.getInt("id"),
