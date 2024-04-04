@@ -12,14 +12,18 @@ import com.google.firebase.firestore.FirebaseFirestore
 class RegisterViewModel : ViewModel() {
     private val auth: FirebaseAuth = Firebase.auth
     private val _loading = MutableLiveData(false)
-    fun createUserWithEmailAndPassword(email: String, password: String, onRegisterSucces: () -> Unit) {
+    fun createUserWithEmailAndPassword(
+        email: String,
+        password: String,
+        onRegisterSucces: () -> Unit
+    ) {
         if (_loading.value == false){
             _loading.value = true
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val displayName = task.result.user?.email?.split("@")?.get(0)
-                        createUser(displayName)
+                        createUser(displayName, email, password)
                         onRegisterSucces()
                     } else {
                         Log.d("HealthChef", "Crear usuario: ${task.result.toString()} ")
@@ -29,20 +33,24 @@ class RegisterViewModel : ViewModel() {
         }
     }
 
-    private fun createUser(displayName: String?) {
+    private fun createUser(displayName: String?, email: String, password: String) {
         val userId = auth.currentUser?.uid
         val user = Usuario(
             id_usuario = userId.toString(),
             nombre_usuario = displayName.toString(),
-            correo_electronico = auth.currentUser?.email.toString()
+            correo_electronico = email,
+            contrasena = password
         )
 
         FirebaseFirestore.getInstance().collection("usuarios")
-            .add(user)
+            .add(user.toMap())
             .addOnSuccessListener {
                 Log.d("HealthChef", "Creado ${it.id}")
             }.addOnFailureListener {
                 Log.d("HealthChef", "Ocurrio error $it")
             }
+    }
+    private fun isEmailValid(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 }

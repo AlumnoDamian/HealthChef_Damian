@@ -131,7 +131,7 @@ fun EditRecipeContent(
             EditRecipeInputField(
                 value = descripcion ?: "Ejemplo: Deliciosa ensalada César",
                 onValueChange = { descripcion = it },
-                label = "Descripcion",
+                label = "Descripción",
                 keyboardType = KeyboardType.Text
             )
             EditRecipeInputField(
@@ -155,7 +155,7 @@ fun EditRecipeContent(
             EditRecipeInputField(
                 value = calorias ?: "Ejemplo: 300",
                 onValueChange = { calorias = it },
-                label = "Caloría",
+                label = "Calorías",
                 keyboardType = KeyboardType.Text
             )
             EditRecipeInputField(
@@ -167,7 +167,7 @@ fun EditRecipeContent(
             EditRecipeInputField(
                 value = proteinas ?: "Ejemplo: 20g",
                 onValueChange = { proteinas = it },
-                label = "Proteinas",
+                label = "Proteínas",
                 keyboardType = KeyboardType.Text
             )
 

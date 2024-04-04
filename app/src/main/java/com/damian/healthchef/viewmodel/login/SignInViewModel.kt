@@ -38,7 +38,7 @@ class SignInViewModel: ViewModel() {
     }
 
     fun signInWithGoogleCredential(credential: AuthCredential, onLoginSucces: () -> Unit)
-            = viewModelScope.launch {
+    = viewModelScope.launch {
         try {
             auth.signInWithCredential(credential)
                 .addOnCompleteListener { task ->
@@ -56,15 +56,24 @@ class SignInViewModel: ViewModel() {
         }
 
     }
-    fun signInWithEmailAndPassword(email: String, password: String, onLoginSucces: () -> Unit)
+    fun signInWithEmailAndPassword(email: String, password: String, onLoginSuccess: () -> Unit,  onError: (String) -> Unit)
     = viewModelScope.launch {
         try {
+            if (!isEmailValid(email)) {
+                onError("El formato del correo electrónico es inválido.")
+                return@launch
+            }
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Log.d("HealthChef", "Iniciar sesion: BIEN!")
-                        loadUserData()
-                        onLoginSucces()
+                        if (task.result?.user?.email == email && task.result?.user?.uid != null) {
+                            loadUserData()
+                            onLoginSuccess()
+                        } else {
+                            Log.d("HealthChef", "Iniciar sesión: Contraseña incorrecta")
+                            onError("Valores incorrectos o inexistentes")
+                        }
                     } else {
                         Log.d("HealthChef", "Iniciar sesion: ${task.result.toString()} ")
                     }
@@ -72,6 +81,10 @@ class SignInViewModel: ViewModel() {
         } catch (ex: Exception) {
             Log.d("HealthChef", "Iniciar sesion: ${ex.message} ")
         }
+    }
+
+    fun isEmailValid(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
     fun signOut(onLogoutSuccess: () -> Unit) {

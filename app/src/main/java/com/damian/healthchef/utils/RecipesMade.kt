@@ -59,8 +59,12 @@ fun inicializarRecetas(recipeViewModel: RecipeViewModel) {
         Recipe(
             nombre = "Pollo al Curry",
             descripcion = "Pollo cocido en una salsa de curry cremosa",
-            ingredientes = "500g de pechugas de pollo, 200ml de leche de coco, 2 cucharadas de pasta de curry, verduras al gusto",
-            instrucciones = "Cocina el pollo con la salsa de curry y sirve con arroz",
+            ingredientes = "500g de pechugas de pollo, " +
+                    "200ml de leche de coco, 2 " +
+                    "cucharadas de pasta de curry, verduras al " +
+                    "gusto",
+            instrucciones = "Cocina el pollo con la salsa de curry y " +
+                    "sirve con arroz",
             tiempoDePreparacion = "45 minutos",
             calorias = "450",
             grasas = "25g",

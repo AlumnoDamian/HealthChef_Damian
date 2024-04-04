@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.damian.healthchef.ui.components.ErrorDialog
 import com.damian.healthchef.ui.components.GoogleLoginButton
 import com.damian.healthchef.ui.components.RegisterSection
 import com.damian.healthchef.ui.components.SignInSection
@@ -38,7 +39,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 fun LoginScreen(
     navController: NavController,
     signInViewModel: SignInViewModel = viewModel(),
-    registerViewModel: RegisterViewModel = viewModel()
+    registerViewModel: RegisterViewModel = viewModel(),
 ) {
 
     var showLoginForm by rememberSaveable { mutableStateOf(true) }
@@ -82,9 +83,16 @@ fun LoginScreen(
                 SignInSection(
                     viewModel = signInViewModel,
                     onLoginSuccess =  { email, password ->
-                        signInViewModel.signInWithEmailAndPassword(email, password) {
-                            navController.navigate(Screens.BottomBarScreens.Recipe.route)
-                        }
+                        signInViewModel.signInWithEmailAndPassword(
+                            email,
+                            password,
+                            onLoginSuccess = {
+                                navController.navigate(Screens.BottomBarScreens.Recipe.route)
+                            },
+                            onError = {
+                                showErrorDialog.value = true
+                            }
+                        )
                     },
                     onContinueRegister = { showLoginForm = false }
                 )
@@ -108,6 +116,13 @@ fun LoginScreen(
             )
 
             GoogleLoginButton(context = context, launcher = launcher)
+
+            if (showErrorDialog.value) {
+                ErrorDialog(
+                    errorMessage = "Contraseña incorrecta",
+                    onDismiss = { showErrorDialog.value = false }
+                )
+            }
 
         }
     }

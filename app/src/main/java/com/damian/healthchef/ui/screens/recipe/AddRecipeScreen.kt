@@ -18,6 +18,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.damian.healthchef.data.model.Recipe
+import com.damian.healthchef.ui.components.buttons.AddRecipeButton
 import com.damian.healthchef.ui.components.inputs.AddRecipeInputField
 import com.damian.healthchef.ui.navigation.BottomBarContent
 import com.damian.healthchef.ui.navigation.Screens
@@ -63,7 +64,7 @@ fun AddRecipeContent(it: PaddingValues, navController: NavController, recipeView
     ) {
         item{
             AddRecipeInputField(
-                value = nombre,
+                value = nombre ?: "Ejemplo: Ensalada César",
                 onValueChange = { nombre = it },
                 label = "Nombre",
                 keyboardType = KeyboardType.Text
@@ -71,7 +72,7 @@ fun AddRecipeContent(it: PaddingValues, navController: NavController, recipeView
             AddRecipeInputField(
                 value = descripcion,
                 onValueChange = { descripcion = it },
-                label = "Descripcion",
+                label = "Descripción",
                 keyboardType = KeyboardType.Text
             )
             AddRecipeInputField(
@@ -95,7 +96,7 @@ fun AddRecipeContent(it: PaddingValues, navController: NavController, recipeView
             AddRecipeInputField(
                 value = calorias,
                 onValueChange = { calorias = it },
-                label = "Calorias",
+                label = "Calorías",
                 keyboardType = KeyboardType.Text
             )
             AddRecipeInputField(
@@ -107,10 +108,10 @@ fun AddRecipeContent(it: PaddingValues, navController: NavController, recipeView
             AddRecipeInputField(
                 value = proteinas,
                 onValueChange = { proteinas = it },
-                label = "Proteinas",
+                label = "Proteínas",
                 keyboardType = KeyboardType.Text
             )
-            Button(
+            AddRecipeButton(
                 onClick = {
                     val listaIngredientes = ingredientes.split(",").map { it.trim() }
                     val ingredientesString = listaIngredientes.joinToString(", ")
@@ -132,9 +133,7 @@ fun AddRecipeContent(it: PaddingValues, navController: NavController, recipeView
                     navController.navigate(Screens.BottomBarScreens.Recipe.route)
                 },
                 enabled = valido
-            ) {
-                Text(text = "Agregar")
-            }
+            )
         }
     }
 }

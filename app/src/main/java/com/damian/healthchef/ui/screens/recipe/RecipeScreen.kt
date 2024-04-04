@@ -23,6 +23,7 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -134,31 +135,47 @@ fun RecipeItem(
                         text = recipe.nombre,
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(5.dp)
+                        modifier = Modifier.padding(14.dp)
                     )
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Row(
-                    horizontalArrangement = Arrangement.End,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    IconButton(onClick = {
-                        isRecipeFavorite = !isRecipeFavorite
-                        onFavoriteRecipeClick()
-                    } ) {
+                    IconButton(
+                        onClick = {
+                            isRecipeFavorite = !isRecipeFavorite
+                            onFavoriteRecipeClick()
+                        },
+                        modifier = Modifier.weight(1f)
+                    ) {
                         Icon(
                             imageVector = if (isRecipeFavorite) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder,
                             contentDescription = "Favorito"
                         )
                     }
-                    IconButton(onClick = onEditRecipeClick) {
-                        Icon(imageVector = Icons.Default.Edit, contentDescription = "Editar")
+
+                    IconButton(
+                        onClick = onEditRecipeClick,
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = "Editar"
+                        )
                     }
-                    Spacer(modifier = Modifier.width(8.dp))
-                    IconButton(onClick = onClickDeleteRecipe) {
-                        Icon(imageVector = Icons.Default.Delete, contentDescription = "Eliminar")
+
+                    IconButton(
+                        onClick = onClickDeleteRecipe,
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = "Eliminar"
+                        )
                     }
                 }
             }

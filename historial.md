@@ -78,6 +78,9 @@ Hoy estuve en clase intentando hacer mas cosas, pero por un error me tuvo todo e
 ### Día 3 (Miercoles)
 Hoy estuve modificando la card en donde se ven los detalles de la receta, donde tuve que hacer varias cosas para que cuando escribas los ingredientes se haga una separación con la coma y se muestren los ingredientes con forma de lista de viñetas, tambien tengo pensado hacerlo apra las instrucciones. Después estuve intentando hacer la planificacion de recetas por fecha pero me rendí, porque era complicado y no encontraba ningun ejemplo ni nada de como hacerlo asi que lo dejé, y en esa pantalla puse lo de añadir recetas y quite el boton flotante de la pantalla de recetas porque me di cuenta que si hay muchas recetas, para la ultima, no se verán los iconos de editar y eliminar. Tambien puse la fuente de letra Righteous.
 
+### Día 3 (Miercoles)
+Hoy estuve realizando modificaciones de mi aplicación como por ejemplo poner los iconos de favorito, editar y eliminar mas ordenado, si el usuario y la contraseña cuando inicias sesión son incorrectos se muestra un mensaje de error, etc. También estuve realizando la documentación de APA de mi proyecto, realizé una presentación donde me falta colocar las capturas de pantallas, y por último realicé un video que me falta por editar
+
 ### VideoTutorial
 [Login Screen en Android Jetpack Compose. Mostrar y ocultar password. Validación de campos.](https://www.youtube.com/watch?v=lC_mgTqiaSM&ab_channel=Gibr%C3%A1nGarc%C3%ADa)
 

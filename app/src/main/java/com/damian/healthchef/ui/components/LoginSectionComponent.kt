@@ -18,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -33,11 +34,13 @@ import com.damian.healthchef.viewmodel.login.SignInViewModel
 fun SignInSection(
     viewModel: SignInViewModel,
     onLoginSuccess: (String, String) -> Unit = { email, password -> },
-    onContinueRegister: () -> Unit
+    onContinueRegister: () -> Unit,
+    onError: (String) -> Unit = {}
 ) {
     val email = rememberSaveable { mutableStateOf("") }
     val password = rememberSaveable { mutableStateOf("") }
     val passwordVisible = rememberSaveable { mutableStateOf(false) }
+    var showError by remember { mutableStateOf(false) }
 
     val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -76,9 +79,26 @@ fun SignInSection(
             textId = "Login",
             inputValido = valido
         ) {
-            onLoginSuccess(email.value.trim(), password.value.trim())
+            viewModel.signInWithEmailAndPassword(
+                email.value.trim(),
+                password.value.trim(),
+                onLoginSuccess = {
+                    onLoginSuccess(email.value.trim(), password.value.trim())
+                },
+                onError = {
+                    showError = true // Mostrar el cuadro de diálogo de error
+                }
+            )
             keyboardController?.hide()
         }
+
+        if (showError) {
+            ErrorDialog(
+                errorMessage = "Valores incorrectos",
+                onDismiss = { showError = false }
+            )
+        }
+
     }
 }
 
@@ -89,7 +109,6 @@ fun RegisterSection(
     onContinueLogin: () -> Unit,
     onError: (String) -> Unit = {}
 ) {
-    val username = rememberSaveable { mutableStateOf("") }
     val email = rememberSaveable { mutableStateOf("") }
     val password = rememberSaveable { mutableStateOf("") }
     val repeatPassword = rememberSaveable { mutableStateOf("") }
@@ -99,15 +118,13 @@ fun RegisterSection(
 
     val keyboardController = LocalSoftwareKeyboardController.current
 
-    val valido by remember(email.value, password.value) {
-        derivedStateOf {
-            email.value.trim().isNotEmpty() && password.value.trim().isNotEmpty()
-        }
+    val isValidEmail by remember(email.value) {
+        mutableStateOf(isValidEmail(email.value.trim()))
     }
 
     LaunchedEffect(showErrorDialog.value) {
         if (showErrorDialog.value) {
-            onError("Las contraseñas no coinciden")
+            onError("")
         }
     }
 
@@ -147,16 +164,17 @@ fun RegisterSection(
 
         ButtonLoginRegister(
             textId = "Regístrate",
-            inputValido = valido
-        ) {
-            if (password.value.trim() == repeatPassword.value.trim()) {
-                onRegisterSuccess(email.value.trim(), password.value.trim())
-                keyboardController?.hide()
-            } else {
-                onError("Las contraseñas no coinciden")
-                showErrorDialog.value = true
+            inputValido = isValidEmail && password.value.trim().isNotEmpty() && repeatPassword.value.trim().isNotEmpty(),
+            onClick = {
+                if (password.value.trim() == repeatPassword.value.trim()) {
+                    onRegisterSuccess(email.value.trim(), password.value.trim())
+                    keyboardController?.hide()
+                } else {
+                    onError("Las contraseñas no coinciden")
+                    showErrorDialog.value = true
+                }
             }
-        }
+        )
         if (showErrorDialog.value) {
             ErrorDialog(
                 errorMessage = "Las contraseñas no coinciden",
@@ -165,4 +183,9 @@ fun RegisterSection(
         }
 
     }
+}
+
+fun isValidEmail(email: String): Boolean {
+    val emailRegex = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
+    return email.matches(emailRegex.toRegex())
 }

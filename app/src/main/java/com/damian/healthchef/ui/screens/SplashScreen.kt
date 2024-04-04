@@ -70,7 +70,7 @@ fun SplashScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = "Hecho por Damian Madueño Bolaños",
+                text = "Hecho por Damián Madueño Bolaños",
                 style = MaterialTheme.typography.bodyLarge.copy(fontSize = 20.sp),
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.primary
