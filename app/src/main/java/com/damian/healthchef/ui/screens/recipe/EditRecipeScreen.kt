@@ -43,6 +43,7 @@ fun EditRecipeScreen(
     grasas: String?,
     proteinas: String?
 ){
+    // Pantalla para editar una receta con barra superior y contenido
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -54,6 +55,7 @@ fun EditRecipeScreen(
                     )
                 },
                 navigationIcon = {
+                    // Botón de flecha atrás para volver a la pantalla anterior
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back")
                     }
@@ -61,6 +63,7 @@ fun EditRecipeScreen(
             )
         }
     ) {
+        // Contenido de la pantalla de edición de receta
         EditRecipeContent(
             it,
             navController,
@@ -93,26 +96,36 @@ fun EditRecipeContent(
     grasas: String?,
     proteinas: String?
 ){
+    // Estado para el nombre de la receta
     var nombre by remember { mutableStateOf(nombre ?: "") }
+    // Estado para la descripción de la receta
     var descripcion by remember { mutableStateOf(descripcion ?: "") }
+    // Estado para los ingredientes de la receta
     var ingredientesText by remember { mutableStateOf(ingredientes ?: "") }
+    // Estado para las instrucciones de la receta
     var instruccionesText by remember { mutableStateOf(instrucciones ?: "") }
+    // Estado para el tiempo de preparación de la receta
     var tiempoDePreparacion by remember { mutableStateOf(tiempoDePreparacion ?: "") }
+    // Estado para las calorías de la receta
     var calorias by remember { mutableStateOf(calorias ?: "") }
+    // Estado para las grasas de la receta
     var grasas by remember { mutableStateOf(grasas ?: "") }
+    // Estado para las proteínas de la receta
     var proteinas by remember { mutableStateOf(proteinas ?: "") }
 
+    // Estado que indica si todos los campos están llenos y válidos
     val valido = remember(nombre, descripcion, ingredientesText, instruccionesText, tiempoDePreparacion, calorias, grasas, proteinas) {
         nombre.trim().isNotEmpty() &&
-        descripcion.trim().isNotEmpty() &&
-        ingredientesText.trim().isNotEmpty() &&
-        instruccionesText.trim().isNotEmpty() &&
-        tiempoDePreparacion.trim().isNotEmpty() &&
-        calorias.trim().isNotEmpty() &&
-        grasas.trim().isNotEmpty() &&
-        proteinas.trim().isNotEmpty()
+                descripcion.trim().isNotEmpty() &&
+                ingredientesText.trim().isNotEmpty() &&
+                instruccionesText.trim().isNotEmpty() &&
+                tiempoDePreparacion.trim().isNotEmpty() &&
+                calorias.trim().isNotEmpty() &&
+                grasas.trim().isNotEmpty() &&
+                proteinas.trim().isNotEmpty()
     }
 
+    // Columna para mostrar los campos de edición de la receta
     LazyColumn (
         modifier = Modifier
             .padding(it)
@@ -171,6 +184,7 @@ fun EditRecipeContent(
                 keyboardType = KeyboardType.Text
             )
 
+            // Botón para editar la receta, habilitado solo si todos los campos están llenos y válidos
             Button(
                 onClick = {
                     val listaIngredientes = ingredientes?.split(",")?.map { it.trim() }

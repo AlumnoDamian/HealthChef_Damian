@@ -15,8 +15,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Person
@@ -32,9 +30,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -44,39 +39,51 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.damian.healthchef.data.model.Recipe
-import com.damian.healthchef.ui.components.ButtonLogOut
+import com.damian.healthchef.ui.components.buttons.ButtonLogOut
 import com.damian.healthchef.ui.navigation.BottomBarContent
 import com.damian.healthchef.viewmodel.login.SignInViewModel
 import com.damian.healthchef.viewmodel.recipe.RecipeViewModel
 
 @Composable
 fun UserFeedScreen(
-    navController: NavController,
+    navController: NavController? = null,
     signInViewModel: SignInViewModel,
     recipeViewModel: RecipeViewModel,
     onLogOut: () -> Unit
 ) {
+    // Observa los cambios en el usuario actual
     val currentUser by signInViewModel.currentUser.observeAsState()
 
+    // Carga los datos del usuario cuando cambia el usuario actual
     LaunchedEffect(key1 = signInViewModel.currentUser.value) {
         signInViewModel.loadUserData()
     }
 
+    // Observa los cambios en la lista de recetas favoritas
     val favoriteRecipes by recipeViewModel.listRecipe.collectAsState(initial = emptyList())
 
+    // Pantalla principal del usuario con Scaffold
     Scaffold(
-        bottomBar = { BottomBarContent(navController = navController) }
+        bottomBar = {
+            if (navController != null) {
+                BottomBarContent(navController = navController)
+            }
+        }
     ) { innerPadding ->
+        // Columna con desplazamiento hacia abajo para las recetas favoritas del usuario
         LazyColumn(
             modifier = Modifier.padding(innerPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            // Tarjeta de usuario
             item {
                 CardUser(
                     name = currentUser ?: "Anonymous",
-                    onLogOut = onLogOut
+                    onLogOut = { signInViewModel.signOut(onLogOut) }
                 )
             }
+
+            // Encabezado para las recetas favoritas
             item {
                 Text(
                     text = "---------- Mis Favoritos ----------",
@@ -84,11 +91,13 @@ fun UserFeedScreen(
                     modifier = Modifier.padding(top = 24.dp, bottom = 24.dp)
                 )
             }
+
+            // Muestra cada receta favorita en una tarjeta
             items(favoriteRecipes) { recipeItem ->
                 if (recipeItem.isFavorite) {
                     RecipeFavorite(
                         recipe = recipeItem,
-                        onRecipeDetailsClick = { navController.navigate(
+                        onRecipeDetailsClick = { navController?.navigate(
                             "detallesReceta/${recipeItem.id}/${recipeItem.nombre}/${recipeItem.descripcion}/${recipeItem.ingredientes}/${recipeItem.instrucciones}/${recipeItem.tiempoDePreparacion}/${recipeItem.calorias}/${recipeItem.grasas}/${recipeItem.proteinas}"
                         ) },
                         onFavoriteRecipeClick = { recipeViewModel.toggleFavorite(recipeItem) }
@@ -100,11 +109,13 @@ fun UserFeedScreen(
     }
 }
 
+
 @Composable
 fun CardUser(
     name: String,
     onLogOut: () -> Unit
 ){
+    // Tarjeta que muestra el nombre del usuario y un botón de cierre de sesión
     Card(
         modifier = Modifier.padding(16.dp)
     ) {
@@ -114,6 +125,7 @@ fun CardUser(
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            // Imagen del usuario (actualmente un icono de persona)
             Image(
                 imageVector = Icons.Outlined.Person, // Reemplaza esto con el recurso de la imagen
                 contentDescription = null, // Añade una descripción adecuada si la imagen es relevante para la accesibilidad
@@ -126,18 +138,19 @@ fun CardUser(
             Spacer(modifier = Modifier.width(16.dp))
 
             Column {
+                // Nombre del usuario
                 Text(
                     text = name,
                     style = MaterialTheme.typography.titleLarge
                 )
             }
         }
+        // Botón de cierre de sesión
         Row {
             ButtonLogOut(onLogOut = onLogOut)
         }
     }
 }
-
 
 @Composable
 fun RecipeFavorite(
@@ -145,7 +158,7 @@ fun RecipeFavorite(
     onFavoriteRecipeClick: () -> Unit,
     onRecipeDetailsClick: () -> Unit
 ) {
-
+    // Tarjeta que muestra detalles de la receta y un botón para agregar o quitar de favoritos
     Card(
         Modifier
             .padding(16.dp)
@@ -165,6 +178,7 @@ fun RecipeFavorite(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+                    // Nombre de la receta
                     Text(
                         text = recipe.nombre,
                         fontSize = 20.sp,
@@ -180,6 +194,7 @@ fun RecipeFavorite(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.End
                 ) {
+                    // Botón para agregar o quitar de favoritos
                     IconButton(onClick = onFavoriteRecipeClick) {
                         Icon(
                             imageVector = if (recipe.isFavorite) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder,

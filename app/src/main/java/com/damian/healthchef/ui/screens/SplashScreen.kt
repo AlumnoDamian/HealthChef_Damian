@@ -32,7 +32,7 @@ import kotlinx.coroutines.delay
 @ExperimentalFoundationApi
 @Composable
 fun SplashScreen(navController: NavController) {
-
+    // Valor animado para la opacidad
     val alpha by animateFloatAsState(
         targetValue = 1f,
         animationSpec = tween(
@@ -41,10 +41,11 @@ fun SplashScreen(navController: NavController) {
         )
     )
 
+    // Efecto lanzado cuando la pantalla se muestra
     LaunchedEffect(key1 = true) {
         delay(2500L)
         navController.popBackStack()
-        // navController.navigate(Screens.BottomBarScreens.Login.route)
+        // Determina a qué pantalla navegar según el estado del usuario
         if (FirebaseAuth.getInstance().currentUser?.email.isNullOrEmpty()){
             navController.navigate(Screens.BottomBarScreens.Login.route)
         } else {
@@ -52,6 +53,7 @@ fun SplashScreen(navController: NavController) {
         }
     }
 
+    // Diseño de la pantalla de presentación
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -61,6 +63,7 @@ fun SplashScreen(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            // Logo de la aplicación
             Image(
                 painter = painterResource(id = R.drawable.health_chef_logo),
                 contentDescription = null,
@@ -69,6 +72,7 @@ fun SplashScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            // Créditos
             Text(
                 text = "Hecho por Damián Madueño Bolaños",
                 style = MaterialTheme.typography.bodyLarge.copy(fontSize = 20.sp),

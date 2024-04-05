@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
+// Componente composable para mostrar un cuadro de diálogo de error
 @Composable
 fun ErrorDialog(
     errorMessage: String,

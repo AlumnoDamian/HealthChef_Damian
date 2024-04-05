@@ -21,39 +21,39 @@ import com.damian.healthchef.ui.screens.recipe.RecipeScreen
 import com.damian.healthchef.viewmodel.login.SignInViewModel
 import com.damian.healthchef.viewmodel.recipe.RecipeViewModel
 
+// Composable que define la navegación de la aplicación
 @Composable
 fun HealthChefAppNavigation(
-    navController: NavHostController = rememberNavController(),
-    recipeViewModel: RecipeViewModel,
-    signInViewModel: SignInViewModel
+    navController: NavHostController = rememberNavController(), // Controlador de navegación
+    recipeViewModel: RecipeViewModel, // ViewModel para las recetas
+    signInViewModel: SignInViewModel // ViewModel para el inicio de sesión
 ) {
 
+    // Define el componente NavHost que contiene las rutas de navegación
     NavHost(
         navController = navController,
-        startDestination = Screens.BottomBarScreens.Splash.route,
+        startDestination = Screens.BottomBarScreens.Splash.route, // Pantalla de inicio
     ) {
+        // Pantalla de Splash
         composable(route = Screens.BottomBarScreens.Splash.route) {
-            SplashScreen(
-                navController
-            )
+            SplashScreen(navController)
         }
+        // Pantalla de inicio de sesión
         composable(route = Screens.BottomBarScreens.Login.route) {
-            LoginScreen(
-                navController
-            )
+            LoginScreen(navController)
         }
 
-        composable(route = Screens.BottomBarScreens.Recipe.route){
-            RecipeScreen(
-                navController = navController,
-                recipeViewModel = recipeViewModel
-            )
+        // Pantalla de recetas
+        composable(route = Screens.BottomBarScreens.Recipe.route) {
+            RecipeScreen(navController = navController, recipeViewModel = recipeViewModel)
         }
 
-        composable(route = Screens.BottomBarScreens.AddRecipe.route){
+        // Pantalla para agregar recetas
+        composable(route = Screens.BottomBarScreens.AddRecipe.route) {
             AddRecipeScreen(navController, recipeViewModel)
         }
 
+        // Pantalla de detalles de receta
         composable(
             route = "detallesReceta/{id}/{nombre}/{descripcion}/{ingredientes}/{instrucciones}/{tiempoDePreparacion}/{calorias}/{grasas}/{proteinas}",
             arguments = listOf(
@@ -76,7 +76,6 @@ fun HealthChefAppNavigation(
 
             RecipeDetailsScreen(
                 navController = navController,
-                recipeViewModel = recipeViewModel,
                 recipeItem = Recipe(
                     id = it.arguments?.getInt("id") ?: -1,
                     nombre = it.arguments?.getString("nombre") ?: "",
@@ -87,25 +86,26 @@ fun HealthChefAppNavigation(
                     calorias = it.arguments?.getString("calorias") ?: "",
                     grasas = it.arguments?.getString("grasas") ?: "",
                     proteinas = it.arguments?.getString("proteinas") ?: "",
-                    isFavorite = false // Aquí puedes definir el valor por defecto para isFavorite
+                    isFavorite = false // Define el valor por defecto para isFavorite
                 )
             )
         }
 
+        // Pantalla para editar recetas
         composable(
             route = "editar/{id}/{nombre}/{descripcion}/{ingredientes}/{instrucciones}/{tiempoDePreparacion}/{calorias}/{grasas}/{proteinas}",
             arguments =
-                listOf(
-                    navArgument("id"){ type = NavType.IntType},
-                    navArgument("nombre"){ type = NavType.StringType},
-                    navArgument("descripcion"){ type = NavType.StringType},
-                    navArgument("ingredientes"){ type = NavType.StringType},
-                    navArgument("instrucciones"){ type = NavType.StringType},
-                    navArgument("tiempoDePreparacion"){ type = NavType.StringType},
-                    navArgument("calorias"){ type = NavType.StringType},
-                    navArgument("grasas"){ type = NavType.StringType},
-                    navArgument("proteinas"){ type = NavType.StringType}
-                )
+            listOf(
+                navArgument("id"){ type = NavType.IntType},
+                navArgument("nombre"){ type = NavType.StringType},
+                navArgument("descripcion"){ type = NavType.StringType},
+                navArgument("ingredientes"){ type = NavType.StringType},
+                navArgument("instrucciones"){ type = NavType.StringType},
+                navArgument("tiempoDePreparacion"){ type = NavType.StringType},
+                navArgument("calorias"){ type = NavType.StringType},
+                navArgument("grasas"){ type = NavType.StringType},
+                navArgument("proteinas"){ type = NavType.StringType}
+            )
         ) {
             val ingredientesString = it.arguments?.getString("ingredientes") ?: ""
             val ingredientes = ingredientesString.split(",") // Convierte la cadena a una lista
@@ -125,7 +125,8 @@ fun HealthChefAppNavigation(
             )
         }
 
-        composable(route = Screens.BottomBarScreens.Perfil.route){
+        // Pantalla de perfil de usuario
+        composable(route = Screens.BottomBarScreens.Perfil.route) {
             UserFeedScreen(
                 navController = navController,
                 signInViewModel = signInViewModel,

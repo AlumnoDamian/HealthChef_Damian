@@ -4,9 +4,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,17 +22,27 @@ import com.damian.healthchef.ui.navigation.BottomBarContent
 import com.damian.healthchef.ui.navigation.Screens
 import com.damian.healthchef.viewmodel.recipe.RecipeViewModel
 
+
 @Composable
-fun AddRecipeScreen(navController: NavController, recipeViewModel: RecipeViewModel){
+fun AddRecipeScreen(navController: NavController? = null, recipeViewModel: RecipeViewModel){
+    // Pantalla para agregar una receta con barra inferior
     Scaffold(
-        bottomBar = { BottomBarContent(navController = navController) }
+        bottomBar = {
+            if (navController != null) {
+                BottomBarContent(navController = navController)
+            }
+        }
     ) {
-        AddRecipeContent(it, navController, recipeViewModel)
+        // Contenido de la pantalla de agregar receta
+        if (navController != null) {
+            AddRecipeContent(it, navController, recipeViewModel)
+        }
     }
 }
 
 @Composable
 fun AddRecipeContent(it: PaddingValues, navController: NavController, recipeViewModel: RecipeViewModel){
+    // Estados para los campos de la nueva receta
     var nombre by remember { mutableStateOf("") }
     var descripcion by remember { mutableStateOf("") }
     var ingredientes by remember { mutableStateOf("") }
@@ -43,18 +51,20 @@ fun AddRecipeContent(it: PaddingValues, navController: NavController, recipeView
     var calorias by remember { mutableStateOf("") }
     var grasas by remember { mutableStateOf("") }
     var proteinas by remember { mutableStateOf("") }
-    
+
+    // Estado que indica si todos los campos están llenos y válidos
     val valido = remember(nombre, descripcion, ingredientes, instrucciones, tiempoDePreparacion, calorias, grasas, proteinas) {
         nombre.trim().isNotEmpty() &&
-        descripcion.trim().isNotEmpty() &&
-        ingredientes.trim().isNotEmpty() &&
-        instrucciones.trim().isNotEmpty() &&
-        tiempoDePreparacion.trim().isNotEmpty() &&
-        calorias.trim().isNotEmpty() &&
-        grasas.trim().isNotEmpty() &&
-        proteinas.trim().isNotEmpty()
+                descripcion.trim().isNotEmpty() &&
+                ingredientes.trim().isNotEmpty() &&
+                instrucciones.trim().isNotEmpty() &&
+                tiempoDePreparacion.trim().isNotEmpty() &&
+                calorias.trim().isNotEmpty() &&
+                grasas.trim().isNotEmpty() &&
+                proteinas.trim().isNotEmpty()
     }
 
+    // Columna para mostrar los campos de agregar receta
     LazyColumn (
         modifier = Modifier
             .padding(it)
@@ -63,6 +73,7 @@ fun AddRecipeContent(it: PaddingValues, navController: NavController, recipeView
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         item{
+            // Campos de entrada para agregar los detalles de la receta
             AddRecipeInputField(
                 value = nombre ?: "Ejemplo: Ensalada César",
                 onValueChange = { nombre = it },
@@ -111,6 +122,7 @@ fun AddRecipeContent(it: PaddingValues, navController: NavController, recipeView
                 label = "Proteínas",
                 keyboardType = KeyboardType.Text
             )
+            // Botón para agregar la receta, habilitado solo si todos los campos están llenos y válidos
             AddRecipeButton(
                 onClick = {
                     val listaIngredientes = ingredientes.split(",").map { it.trim() }

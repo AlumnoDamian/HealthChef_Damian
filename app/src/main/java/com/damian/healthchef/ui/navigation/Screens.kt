@@ -13,49 +13,42 @@ import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.damian.healthchef.R
 
+// Clase sellada para definir las pantallas de navegación
 sealed class Screens(
-    val route: String,
-    val arguments: List<NamedNavArgument>? = null
+    val route: String, // Ruta de la pantalla
+    val arguments: List<NamedNavArgument>? = null // Argumentos opcionales de la pantalla
 ){
 
+    // Clases internas para las pantallas del menú inferior
     sealed class BottomBarScreens(
-        route: String,
-        val title: String,
-        val icon: ImageVector? = null
+        route: String, // Ruta de la pantalla
+        val title: String, // Título de la pantalla
+        val icon: ImageVector? = null // Icono de la pantalla (opcional)
     ) : Screens(route) {
         object Splash : BottomBarScreens(
-            route = "splash",
-            title = "Splash"
+            route = "splash", // Ruta de la pantalla Splash
+            title = "Splash" // Título de la pantalla Splash
         )
         object Login : BottomBarScreens(
-            route = "login",
-            title = "Login"
+            route = "login", // Ruta de la pantalla de inicio de sesión
+            title = "Login" // Título de la pantalla de inicio de sesión
         )
         object Recipe : BottomBarScreens(
-            route = "recipe",
-            title = "Recetas",
+            route = "recipe", // Ruta de la pantalla de recetas
+            title = "Recetas", // Título de la pantalla de recetas
         )
         object AddRecipe : BottomBarScreens(
-            route = "addrecipe",
-            title = "Añadir",
-            icon = Icons.Outlined.AddCircle
+            route = "addrecipe", // Ruta de la pantalla para agregar recetas
+            title = "Añadir", // Título de la pantalla para agregar recetas
+            icon = Icons.Outlined.AddCircle // Icono de la pantalla para agregar recetas
         )
 
         object Perfil : BottomBarScreens(
-            route = "perfil",
-            title = "Perfil",
-            icon = Icons.Outlined.Person
+            route = "perfil", // Ruta de la pantalla de perfil
+            title = "Perfil", // Título de la pantalla de perfil
+            icon = Icons.Outlined.Person // Icono de la pantalla de perfil
         )
 
-    }
-
-    fun withArgs(vararg args: String): String {
-        return buildString {
-            append(route)
-            args.forEach { arg ->
-                append("/{$arg}")
-            }
-        }
     }
 
 }

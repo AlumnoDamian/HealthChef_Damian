@@ -38,11 +38,11 @@ fun SearchTopBar(
     recipeViewModel: RecipeViewModel
 ) {
     val context = LocalContext.current
-    var query by remember { mutableStateOf("") }
-    var active by remember { mutableStateOf(false) }
+    var query by remember { mutableStateOf("") } // Estado para almacenar la consulta de búsqueda
+    var active by remember { mutableStateOf(false) } // Estado para indicar si la barra de búsqueda está activa o no
 
     val onSearch: (String) -> Unit = {
-        active = false
+        active = false // Cuando se realiza una búsqueda, se desactiva la barra de búsqueda
     }
 
     Surface(
@@ -83,9 +83,11 @@ fun SearchTopBar(
             }
         ) {
             if (query.isNotEmpty()) {
+                // Obtener los resultados de la búsqueda y almacenarlos en un estado
                 val recipe =
                     recipeViewModel.searchRecipe(query).collectAsState(initial = emptyList())
 
+                // Mostrar los resultados de la búsqueda en una lista
                 LazyColumn (modifier = Modifier.background(MaterialTheme.colorScheme.secondary)) {
                     items(recipe.value) { recipeItem ->
                         RecipeItem(
@@ -95,13 +97,21 @@ fun SearchTopBar(
                                 recipeViewModel.toggleFavorite(recipeItem)
                             },
                             onRecipeDetailsClick = {
+                                // Navegar a la pantalla de detalles de la receta
                                 navController.navigate(
                                     "detallesReceta/${recipeItem.id}/${recipeItem.nombre}/${recipeItem.descripcion}/${recipeItem.ingredientes}/${recipeItem.instrucciones}/${recipeItem.tiempoDePreparacion}/${recipeItem.calorias}/${recipeItem.grasas}/${recipeItem.proteinas}"
                                 )
                             },
-                            onEditRecipeClick = {},
-                            onClickDeleteRecipe = {}
-                        )
+                            onEditRecipeClick = {
+                                // Navegar a la pantalla de edición de la receta
+                                navController.navigate(
+                                    "editar/${recipeItem.id}/${recipeItem.nombre}/${recipeItem.descripcion}/${recipeItem.ingredientes}/${recipeItem.instrucciones}/${recipeItem.tiempoDePreparacion}/${recipeItem.calorias}/${recipeItem.grasas}/${recipeItem.proteinas}"
+                                )
+                            }
+                        ) {
+                            // Eliminar la receta
+                            recipeViewModel.deleteRecipe(recipeItem)
+                        }
                     }
                 }
             }

@@ -1,44 +1,26 @@
 package com.damian.healthchef.ui.screens.recipe
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -46,35 +28,41 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.damian.healthchef.data.model.Recipe
 import com.damian.healthchef.ui.navigation.BottomBarContent
-import com.damian.healthchef.ui.navigation.Screens
 import com.damian.healthchef.ui.navigation.SearchTopBar
-import com.damian.healthchef.utils.inicializarRecetas
 import com.damian.healthchef.viewmodel.recipe.RecipeViewModel
-import java.util.Locale.Category
 
 @Composable
 fun RecipeScreen(
-    navController: NavController,
+    navController: NavController? = null,
     recipeViewModel: RecipeViewModel
 ) {
+    // Obtener la lista de recetas desde el ViewModel
     val recipes by recipeViewModel.listRecipe.collectAsState(initial = emptyList())
 
+    // Pantalla de la receta con barra de búsqueda en la parte superior y contenido de recetas en el cuerpo
     Scaffold(
-        topBar = { SearchTopBar(navController = navController, recipeViewModel = recipeViewModel) },
-        bottomBar = { BottomBarContent(navController = navController) }
+        topBar = {
+            if (navController != null) {
+                SearchTopBar(navController = navController, recipeViewModel = recipeViewModel)
+            }
+        },
+        bottomBar = {
+            if (navController != null) {
+                BottomBarContent(navController = navController)
+            }
+        }
     ) { innerPadding ->
+        // Lista de recetas
         LazyColumn(modifier = Modifier.padding(innerPadding)) {
             recipes.forEach { recipeItem ->
                 item {
+                    // Elemento de la receta
                     RecipeItem(
                         recipe = recipeItem,
                         isFavorite = recipeItem.isFavorite,
@@ -82,12 +70,12 @@ fun RecipeScreen(
                             recipeViewModel.toggleFavorite(recipeItem)
                         },
                         onRecipeDetailsClick = {
-                            navController.navigate(
+                            navController?.navigate(
                                 "detallesReceta/${recipeItem.id}/${recipeItem.nombre}/${recipeItem.descripcion}/${recipeItem.ingredientes}/${recipeItem.instrucciones}/${recipeItem.tiempoDePreparacion}/${recipeItem.calorias}/${recipeItem.grasas}/${recipeItem.proteinas}"
                             )
                         },
                         onEditRecipeClick = {
-                            navController.navigate(
+                            navController?.navigate(
                                 "editar/${recipeItem.id}/${recipeItem.nombre}/${recipeItem.descripcion}/${recipeItem.ingredientes}/${recipeItem.instrucciones}/${recipeItem.tiempoDePreparacion}/${recipeItem.calorias}/${recipeItem.grasas}/${recipeItem.proteinas}"
                             )
                         }
@@ -110,8 +98,10 @@ fun RecipeItem(
     onClickDeleteRecipe: () -> Unit
 ) {
 
+    // Estado para controlar si la receta es favorita
     var isRecipeFavorite by rememberSaveable { mutableStateOf(isFavorite) }
 
+    // Elemento de la tarjeta de receta
     Card(
         Modifier
             .padding(16.dp)
@@ -127,6 +117,7 @@ fun RecipeItem(
     ) {
         Row {
             Column {
+                // Nombre de la receta
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
@@ -141,10 +132,12 @@ fun RecipeItem(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
+                // Botones de acción: favorito, editar y eliminar
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+                    // Botón favorito
                     IconButton(
                         onClick = {
                             isRecipeFavorite = !isRecipeFavorite
@@ -158,6 +151,7 @@ fun RecipeItem(
                         )
                     }
 
+                    // Botón editar
                     IconButton(
                         onClick = onEditRecipeClick,
                         modifier = Modifier.weight(1f)
@@ -168,6 +162,7 @@ fun RecipeItem(
                         )
                     }
 
+                    // Botón eliminar
                     IconButton(
                         onClick = onClickDeleteRecipe,
                         modifier = Modifier.weight(1f)

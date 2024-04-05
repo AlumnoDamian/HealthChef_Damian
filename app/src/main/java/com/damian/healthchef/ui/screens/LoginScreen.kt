@@ -25,9 +25,9 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.damian.healthchef.ui.components.ErrorDialog
-import com.damian.healthchef.ui.components.GoogleLoginButton
 import com.damian.healthchef.ui.components.RegisterSection
 import com.damian.healthchef.ui.components.SignInSection
+import com.damian.healthchef.ui.components.buttons.GoogleLoginButton
 import com.damian.healthchef.ui.navigation.Screens
 import com.damian.healthchef.viewmodel.login.RegisterViewModel
 import com.damian.healthchef.viewmodel.login.SignInViewModel
@@ -41,13 +41,16 @@ fun LoginScreen(
     signInViewModel: SignInViewModel = viewModel(),
     registerViewModel: RegisterViewModel = viewModel(),
 ) {
-
+    // Estado para mostrar el formulario de inicio de sesión o registro
     var showLoginForm by rememberSaveable { mutableStateOf(true) }
 
+    // Contexto local
     val context = LocalContext.current
 
+    // Estado para mostrar el diálogo de error
     val showErrorDialog = remember { mutableStateOf(false) }
 
+    // Lanzador para el inicio de sesión con Google
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
     ) {
@@ -63,6 +66,7 @@ fun LoginScreen(
         }
     }
 
+    // Diseño de la pantalla de inicio de sesión
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
@@ -72,6 +76,7 @@ fun LoginScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
+            // Título dependiendo del estado de mostrar el formulario
             Text(
                 text = if (showLoginForm) "Iniciar Sesión" else "Registrarse",
                 fontSize = 24.sp,
@@ -79,6 +84,7 @@ fun LoginScreen(
                 modifier = Modifier.padding(bottom = 100.dp)
             )
 
+            // Mostrar formulario de inicio de sesión o registro
             if (showLoginForm) {
                 SignInSection(
                     viewModel = signInViewModel,
@@ -109,14 +115,17 @@ fun LoginScreen(
                 )
             }
 
+            // Separador
             Text(
                 text = "----------------- o -----------------",
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.padding(top = 24.dp, bottom = 24.dp)
             )
 
+            // Botón de inicio de sesión con Google
             GoogleLoginButton(context = context, launcher = launcher)
 
+            // Mostrar el diálogo de error si es necesario
             if (showErrorDialog.value) {
                 ErrorDialog(
                     errorMessage = "Contraseña incorrecta",
